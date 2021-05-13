@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/nearbyLocationsFragment">
+
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="ru.orlovvv.ort.ui.fragments.MapsFragment"
+        android:label="MapsFragment" />
+    <fragment
+        android:id="@+id/nearbyLocationsFragment"
+        android:name="ru.orlovvv.ort.ui.fragments.NearbyLocationsFragment"
+        android:label="NearbyLocationsFragment" />
+    <fragment
+        android:id="@+id/savedLocationsFragment"
+        android:name="ru.orlovvv.ort.ui.fragments.SavedLocationsFragment"
+        android:label="SavedLocationsFragment" />
+</navigation>
