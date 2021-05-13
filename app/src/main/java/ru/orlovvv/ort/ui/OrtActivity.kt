@@ -4,18 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.android.synthetic.main.activity_main.*
-import ru.orlovvv.ort.R
-import ru.orlovvv.ort.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.activity_ort.*
+import ru.orlovvv.ort.databinding.ActivityOrtBinding
 
 class OrtActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityOrtBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityOrtBinding.inflate(layoutInflater)
         binding.bnMenu.setupWithNavController(nav_host_fragment.findNavController())
 
         setContentView(binding.root)
