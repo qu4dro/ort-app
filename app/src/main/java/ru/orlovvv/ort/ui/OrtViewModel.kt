@@ -5,5 +5,9 @@ import ru.orlovvv.ort.repository.OrtRepository
 
 class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
 
+    private var _allLocationsPreviews = ortRepository.getAllLocations()
+    val allLocationsPreviews
+        get() = _allLocationsPreviews
+
 
 }
