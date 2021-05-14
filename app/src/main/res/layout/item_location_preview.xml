@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_location_card"
@@ -61,7 +61,7 @@
                     android:id="@+id/tv_location_range"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{location.range}"
+                    android:text="@{String.valueOf(location.range)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_location_address"
@@ -70,7 +70,7 @@
                 <androidx.appcompat.widget.AppCompatRatingBar
                     android:id="@+id/rb_location_rating"
                     style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="@{location.stars}"
                     app:layout_constraintEnd_toEndOf="parent"
