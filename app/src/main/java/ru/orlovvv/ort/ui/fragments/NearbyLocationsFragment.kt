@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
@@ -44,6 +45,20 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        locationAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("locationPreview", it)
+            }
+            findNavController().navigate(
+                R.id.action_nearbyLocationsFragment_to_locationInfoFragment,
+                bundle
+            )
+        }
     }
 
 }

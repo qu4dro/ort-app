@@ -2,6 +2,7 @@ package ru.orlovvv.ort.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "locations_preview")
 data class LocationPreview(
@@ -12,4 +13,4 @@ data class LocationPreview(
     val range: Int,
     val services: List<String>,
     val stars: Int
-)
+) : Serializable
