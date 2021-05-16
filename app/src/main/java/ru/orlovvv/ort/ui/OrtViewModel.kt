@@ -49,4 +49,12 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
         }
         return Resource.Error(response.message())
     }
+
+    fun saveLocation(locationPreview: LocationPreview) = viewModelScope.launch {
+        ortRepository.insertLocation(locationPreview)
+    }
+
+    fun deleteLocation(locationPreview: LocationPreview) = viewModelScope.launch {
+        ortRepository.deleteLocation(locationPreview)
+    }
 }
