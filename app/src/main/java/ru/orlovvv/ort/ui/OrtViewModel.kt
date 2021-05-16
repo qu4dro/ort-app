@@ -26,10 +26,10 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
 
 
     init {
-        getNearbyLocations()
+        getNearbyLocationsFromServer()
     }
 
-    fun getNearbyLocations() = viewModelScope.launch {
+    fun getNearbyLocationsFromServer() = viewModelScope.launch {
         try {
             Log.d("123", "LOADING: ")
             _nearbyLocations.value = Resource.Loading()
