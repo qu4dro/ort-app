@@ -7,7 +7,7 @@ import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.models.LocationPreview
 
 @BindingAdapter("locationsPreviewList")
-fun bindLocationsPreviewRecyclerView(recyclerView: RecyclerView, data: LiveData<List<LocationPreview>>) {
+fun bindLocationsPreviewRecyclerView(recyclerView: RecyclerView, data: List<LocationPreview>?) {
     val adapter = recyclerView.adapter as LocationAdapter
-    adapter.submitList(data.value)
+    adapter.submitList(data)
 }
