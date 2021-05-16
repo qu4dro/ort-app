@@ -12,10 +12,14 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
+            style="@style/CardViewStyle.LocationPreviewStyle"
             android:id="@+id/cv_location_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -38,6 +43,7 @@
                     tools:text="Service 1, service 2, service 3" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginTop="16dp"
                     android:id="@+id/tv_location_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,6 +54,7 @@
                     tools:text="Location name" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginTop="8dp"
                     android:id="@+id/tv_location_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -58,11 +65,12 @@
                     tools:text="Location address" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:layout_marginTop="8dp"
                     android:id="@+id/tv_location_range"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@{String.valueOf(location.range)}"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/rb_location_rating"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_location_address"
                     tools:text="Location range" />
@@ -74,8 +82,9 @@
                     android:layout_height="wrap_content"
                     android:numStars="@{location.stars}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_location_range" />
+                    app:layout_constraintStart_toEndOf="@id/tv_location_range"
+                    app:layout_constraintTop_toTopOf="@id/tv_location_range"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_location_range"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
