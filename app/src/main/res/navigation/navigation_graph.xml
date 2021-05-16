@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_mapsFragment_to_locationInfoFragment"
             app:destination="@id/locationInfoFragment" />
+        <action
+            android:id="@+id/action_mapsFragment_to_addLocationFragment"
+            app:destination="@id/addLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/nearbyLocationsFragment"
@@ -19,6 +22,9 @@
         <action
             android:id="@+id/action_nearbyLocationsFragment_to_locationInfoFragment"
             app:destination="@id/locationInfoFragment" />
+        <action
+            android:id="@+id/action_nearbyLocationsFragment_to_addLocationFragment"
+            app:destination="@id/addLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedLocationsFragment"
@@ -32,4 +38,8 @@
         android:id="@+id/locationInfoFragment"
         android:name="ru.orlovvv.ort.ui.fragments.LocationInfoFragment"
         android:label="LocationInfoFragment" />
+    <fragment
+        android:id="@+id/addLocationFragment"
+        android:name="ru.orlovvv.ort.ui.fragments.AddLocationFragment"
+        android:label="AddLocationFragment" />
 </navigation>
