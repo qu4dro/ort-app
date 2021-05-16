@@ -12,5 +12,5 @@ interface Api {
         @Query("lng") lng: Double,
         @Query("lat") lat: Double,
         @Query("maxDistance") maxDistance: Int
-    ): Response<LocationPreview>
+    ): Response<List<LocationPreview>>
 }
