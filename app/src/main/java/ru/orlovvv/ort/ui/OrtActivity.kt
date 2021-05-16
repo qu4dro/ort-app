@@ -3,6 +3,7 @@ package ru.orlovvv.ort.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -34,6 +35,8 @@ class OrtActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         setNavigationListeners()
     }
 
@@ -43,13 +46,23 @@ class OrtActivity : AppCompatActivity() {
                 when (destination.id) {
                     R.id.mapsFragment -> {
                         binding.btnAddLocation.show()
-
+                        binding.bnMenu.visibility = View.VISIBLE
                     }
+
                     R.id.nearbyLocationsFragment -> {
                         binding.btnAddLocation.show()
-
+                        binding.bnMenu.visibility = View.VISIBLE
                     }
-                    else -> binding.btnAddLocation.hide()
+
+                    R.id.savedLocationsFragment -> {
+                        binding.btnAddLocation.hide()
+                        binding.bnMenu.visibility = View.VISIBLE
+                    }
+
+                    else -> {
+                        binding.bnMenu.visibility = View.GONE
+                        binding.btnAddLocation.hide()
+                    }
                 }
 
             }
