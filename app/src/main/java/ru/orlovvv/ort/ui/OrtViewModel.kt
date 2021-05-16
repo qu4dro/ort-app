@@ -16,9 +16,9 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
 
     private var locationsResponse: List<LocationPreview>? = null
 
-    private var _allLocationsPreviews = ortRepository.getAllLocations()
-    val allLocationsPreviews
-        get() = _allLocationsPreviews
+    private var _savedLocations = ortRepository.getSavedLocations()
+    val savedLocations
+        get() = _savedLocations
 
     private val _nearbyLocations: MutableLiveData<Resource<List<LocationPreview>>> = MutableLiveData()
     val nearbyLocations: LiveData<Resource<List<LocationPreview>>>
@@ -34,14 +34,14 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
             Log.d("123", "LOADING: ")
             _nearbyLocations.value = Resource.Loading()
             val response = ortRepository.getNearbyLocations(104.299971, 52.222977, 10000)
-            _nearbyLocations.value = handleTopNewsResponse(response)
+            _nearbyLocations.value = handleNearbyLocationsResponse(response)
         } catch (e: Exception) {
 //            _nearbyLocations.value = Resource.Success((ArrayList()))
         }
 
     }
 
-    private fun handleTopNewsResponse(response: Response<List<LocationPreview>>): Resource<List<LocationPreview>> {
+    private fun handleNearbyLocationsResponse(response: Response<List<LocationPreview>>): Resource<List<LocationPreview>> {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)
