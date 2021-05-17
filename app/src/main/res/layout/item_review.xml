@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,15 +13,69 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="-8dp">
 
-        <TextView
-            android:text="@{review.toString()}"
-            app:layout_constraintTop_toTopOf="parent"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_review_author"
+            style="@style/TextStyle.Regular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{review.author}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_review_date"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Author" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_review_date"
+            style="@style/TextStyle.Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="@{review.date}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_review_author"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="24.24.2023" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_review_text"
+            style="@style/TextStyle.Semibold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{review.text}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_review_author"
+            tools:text="24.24.2023" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rb_location_rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:numStars="@{review.stars}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_review_text" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rb_location_rating" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>
