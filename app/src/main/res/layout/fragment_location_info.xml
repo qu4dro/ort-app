@@ -54,10 +54,10 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_location_range"
-                style="@style/TextStyle.Semibold"
+                style="@style/TextStyle.Regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@{String.valueOf(locationPreview.range)}"
                 app:layout_constraintEnd_toStartOf="@id/rb_location_rating"
                 app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +86,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_location_range" />
 
             <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle.Semibold"
+                style="@style/TextStyle.Regular"
                 android:id="@+id/tv_location_working_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 tools:text="Location working time" />
 
             <com.google.android.material.textview.MaterialTextView
-                style="@style/TextStyle.Semibold"
+                style="@style/TextStyle.Regular"
                 android:id="@+id/tv_location_services"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
