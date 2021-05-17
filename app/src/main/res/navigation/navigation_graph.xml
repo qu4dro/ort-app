@@ -41,5 +41,11 @@
     <fragment
         android:id="@+id/addLocationFragment"
         android:name="ru.orlovvv.ort.ui.fragments.AddLocationFragment"
-        android:label="AddLocationFragment" />
+        android:label="AddLocationFragment" >
+        <action
+            android:id="@+id/action_addLocationFragment_to_nearbyLocationsFragment"
+            app:destination="@id/nearbyLocationsFragment"
+            app:popUpTo="@id/nearbyLocationsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

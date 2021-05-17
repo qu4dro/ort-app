@@ -3,4 +3,6 @@
     <string name="nearby">Nearby</string>
     <string name="saved">Saved</string>
     <string name="maps">Maps</string>
+    <string name="create_location">Create location</string>
+    <string name="required">Required</string>
 </resources>
