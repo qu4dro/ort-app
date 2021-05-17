@@ -12,6 +12,11 @@ class OrtRepository(private val ortDB: OrtDatabase) {
     suspend fun getNearbyLocations(lng: Double, lat: Double, maxDistance: Int) =
         RetrofitInstance.api.getNearbyLocations(lng, lat, maxDistance)
 
+    suspend fun addLocation(location: LocationPost) =
+        RetrofitInstance.api.addLocation(location)
+
+    suspend fun getLocationInfo(id: String) = RetrofitInstance.api.getLocationInfo(id)
+
     // database
     suspend fun insertLocation(locationPreview: LocationPreview) =
         ortDB.getOrtDao().insertLocation(locationPreview)
@@ -21,6 +26,5 @@ class OrtRepository(private val ortDB: OrtDatabase) {
 
     fun getSavedLocations(): LiveData<List<LocationPreview>> = ortDB.getOrtDao().getAllLocations()
 
-    suspend fun addLocation(location: LocationPost) =
-        RetrofitInstance.api.addLocation(location)
+
 }
