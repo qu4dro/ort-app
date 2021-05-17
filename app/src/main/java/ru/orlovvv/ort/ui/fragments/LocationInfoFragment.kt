@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
+import ru.orlovvv.ort.adapters.ReviewAdapter
 import ru.orlovvv.ort.databinding.FragmentLocationInfoBinding
 import ru.orlovvv.ort.databinding.FragmentNearbyLocationsBinding
 import ru.orlovvv.ort.models.LocationPreview
@@ -21,6 +23,7 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
 
     private lateinit var ortViewModel: OrtViewModel
     private lateinit var binding: FragmentLocationInfoBinding
+    private lateinit var reviewAdapter: ReviewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +33,8 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
 
         val location = arguments?.get("location") as LocationPreview
 
+        reviewAdapter = ReviewAdapter()
+
         binding = FragmentLocationInfoBinding.inflate(inflater)
         ortViewModel = (activity as OrtActivity).ortViewModel
 
@@ -37,7 +42,16 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
             lifecycleOwner = this@LocationInfoFragment
             viewModel = ortViewModel
             locationPreview = location
+            rvReviews.apply {
+                layoutManager = LinearLayoutManager(
+                    inflater.context,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+                adapter = reviewAdapter
+            }
         }
+
         return binding.root
     }
 }
