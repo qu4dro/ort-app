@@ -28,7 +28,7 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
         savedInstanceState: Bundle?
     ): View? {
 
-        val location = args.location
+        val location = arguments?.get("location") as LocationPreview
 
         binding = FragmentLocationInfoBinding.inflate(inflater)
         ortViewModel = (activity as OrtActivity).ortViewModel
@@ -36,8 +36,8 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
         binding.apply {
             lifecycleOwner = this@LocationInfoFragment
             viewModel = ortViewModel
+            locationPreview = location
         }
-
         return binding.root
     }
 }
