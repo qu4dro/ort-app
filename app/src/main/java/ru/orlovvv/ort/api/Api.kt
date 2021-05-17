@@ -1,10 +1,7 @@
 package ru.orlovvv.ort.api
 
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 import ru.orlovvv.ort.models.LocationInfo
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.LocationPreview
@@ -18,9 +15,9 @@ interface Api {
         @Query("maxDistance") maxDistance: Int
     ): Response<List<LocationPreview>>
 
-    @GET("/api/locations/")
+    @GET("/api/locations/{id}")
     suspend fun getLocationInfo(
-        @Query("id") id: String
+        @Path("id") id: String
     ): Response<LocationInfo>
 
     @POST("/api/locations/")
