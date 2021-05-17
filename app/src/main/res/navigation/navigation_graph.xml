@@ -37,7 +37,11 @@
     <fragment
         android:id="@+id/locationInfoFragment"
         android:name="ru.orlovvv.ort.ui.fragments.LocationInfoFragment"
-        android:label="LocationInfoFragment" />
+        android:label="LocationInfoFragment" >
+        <argument
+            android:name="location"
+            app:argType="ru.orlovvv.ort.models.LocationPreview" />
+    </fragment>
     <fragment
         android:id="@+id/addLocationFragment"
         android:name="ru.orlovvv.ort.ui.fragments.AddLocationFragment"

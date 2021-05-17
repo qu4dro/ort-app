@@ -51,8 +51,11 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
         super.onViewCreated(view, savedInstanceState)
 
         locationAdapter.setOnItemClickListener {
+
+            ortViewModel.getLocationInfo(it._id)
+
             val bundle = Bundle().apply {
-                putSerializable("locationPreview", it)
+                putSerializable("location", it)
             }
             findNavController().navigate(
                 R.id.action_nearbyLocationsFragment_to_locationInfoFragment,
