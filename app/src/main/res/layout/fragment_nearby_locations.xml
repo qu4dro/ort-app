@@ -12,10 +12,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cardview_dark_background">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="16dp"
             android:id="@+id/rv_nearby_locations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
