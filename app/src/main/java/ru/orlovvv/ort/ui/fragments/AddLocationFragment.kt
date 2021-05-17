@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationBinding
 import ru.orlovvv.ort.databinding.FragmentLocationInfoBinding
+import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
@@ -47,6 +48,20 @@ class AddLocationFragment : Fragment(R.layout.fragment_add_location) {
                 R.string.required.toString()
             if (binding.etLocationName.text.toString()
                     .isNotEmpty() && binding.etLocationTags.text.toString().isNotEmpty()) {
+
+                ortViewModel.addLocation(
+                    LocationPost(
+                        binding.etLocationName.text.toString(),
+                        binding.tvLocationAddress.text.toString(),
+                        binding.etLocationTags.text.toString(),
+                        104.2997634,
+                        52.2225774,
+                        binding.etLocationDate.text.toString(),
+                        binding.etLocationTimeStart.text.toString(),
+                        binding.etLocationTimeEnd.text.toString()
+                    )
+                )
+
                 findNavController().navigate(R.id.action_addLocationFragment_to_nearbyLocationsFragment)
             }
         }

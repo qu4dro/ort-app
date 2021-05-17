@@ -3,6 +3,7 @@ package ru.orlovvv.ort.repository
 import androidx.lifecycle.LiveData
 import ru.orlovvv.ort.api.RetrofitInstance
 import ru.orlovvv.ort.db.OrtDatabase
+import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.LocationPreview
 
 class OrtRepository(private val ortDB: OrtDatabase) {
@@ -19,4 +20,7 @@ class OrtRepository(private val ortDB: OrtDatabase) {
         ortDB.getOrtDao().deleteLocation(locationPreview)
 
     fun getSavedLocations(): LiveData<List<LocationPreview>> = ortDB.getOrtDao().getAllLocations()
+
+    suspend fun addLocation(location: LocationPost) =
+        RetrofitInstance.api.addLocation(location)
 }

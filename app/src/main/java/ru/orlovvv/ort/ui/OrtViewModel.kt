@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.repository.OrtRepository
 import ru.orlovvv.ort.util.Resource
@@ -56,5 +57,9 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
 
     fun deleteLocation(locationPreview: LocationPreview) = viewModelScope.launch {
         ortRepository.deleteLocation(locationPreview)
+    }
+
+    fun addLocation(location: LocationPost) = viewModelScope.launch {
+        ortRepository.addLocation(location)
     }
 }
