@@ -16,6 +16,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        app:paddingTopSystemWindowInsets="@{true}"
+        app:paddingBottomSystemWindowInsets="@{true}"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary">
