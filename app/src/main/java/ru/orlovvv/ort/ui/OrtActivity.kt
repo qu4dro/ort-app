@@ -64,6 +64,7 @@ class OrtActivity : AppCompatActivity() {
     private fun setBottomAppBarForNearby(@MenuRes menuRes: Int) {
         binding.run {
             fab.setImageState(intArrayOf(-android.R.attr.state_activated), true)
+            babMenu.setNavigationIcon(R.drawable.ic_menu_24)
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
             babMenu.performShow()
@@ -74,6 +75,8 @@ class OrtActivity : AppCompatActivity() {
     private fun setBottomAppBarForSaved(@MenuRes menuRes: Int) {
         binding.run {
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
+            babMenu.navigationIcon = null
+            babMenu.navigationIcon?.setVisible(false, true)
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
             babMenu.performShow()
@@ -83,6 +86,7 @@ class OrtActivity : AppCompatActivity() {
 
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
         binding.run {
+            babMenu.navigationIcon = null
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
