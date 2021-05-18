@@ -18,6 +18,12 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <style name="TextStyle.Extrabold" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/montserrat_extrabold</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+    </style>
+
     <style name="TextStyle.Bold" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>

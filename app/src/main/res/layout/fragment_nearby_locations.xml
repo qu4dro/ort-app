@@ -11,7 +11,6 @@
     </data>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:fitsSystemWindows="false"
             android:paddingTop="2dp"
             android:paddingBottom="56dp"
             android:transitionGroup="true"

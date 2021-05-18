@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:maxLines="1"
                     style="@style/TextStyle.Regular"
                     android:id="@+id/tv_location_services"
                     android:layout_width="match_parent"
@@ -40,8 +41,9 @@
                     tools:text="Service 1, service 2, service 3" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/TextStyle.Bold"
-                    android:layout_marginTop="16dp"
+                    android:maxLines="1"
+                    style="@style/TextStyle.Extrabold"
+                    android:layout_marginTop="8dp"
                     android:id="@+id/tv_location_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,7 +54,8 @@
                     tools:text="Location name" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    style="@style/TextStyle.Semibold"
+                    android:maxLines="3"
+                    style="@style/TextStyle.Regular"
                     android:layout_marginTop="8dp"
                     android:id="@+id/tv_location_address"
                     android:layout_width="match_parent"
@@ -64,8 +67,9 @@
                     tools:text="Location address" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:maxLines="1"
                     style="@style/TextStyle.Regular"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:id="@+id/tv_location_range"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
