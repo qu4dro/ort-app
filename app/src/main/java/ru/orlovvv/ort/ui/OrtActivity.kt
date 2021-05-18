@@ -44,6 +44,8 @@ class OrtActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.babMenu.setNavigationOnClickListener {
+            val dialog = MenuDialog()
+            dialog.show(supportFragmentManager, "menuDialog")
         }
 
         setNavigationListeners()
