@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/nearbyLocationsFragment"
         android:icon="@drawable/ic_list_24"
-        android:title="@string/nearby" />
+        android:title="@string/nearby"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/savedLocationsFragment"
         android:icon="@drawable/ic_saved_24"
-        android:title="@string/saved" />
+        android:title="@string/saved"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/mapsFragment"
         android:icon="@drawable/ic_location_24"
-        android:title="@string/maps" />
+        android:title="@string/maps"
+        app:showAsAction="ifRoom"/>
+
 </menu>
