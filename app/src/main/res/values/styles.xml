@@ -2,8 +2,8 @@
 <resources>
 
     <style name="CardViewStyle.LocationPreviewStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardElevation">4dp</item>
-        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardCornerRadius">0dp</item>
     </style>
 
     <style name="CardViewStyle.RoundedTop" parent="@style/Widget.MaterialComponents.CardView">
@@ -16,6 +16,12 @@
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="TextStyle.Extrabold" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/montserrat_extrabold</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
     </style>
 
     <style name="TextStyle.Bold" parent="Widget.MaterialComponents.TextView">
@@ -35,5 +41,29 @@
         <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="fontFamily">@font/montserrat_regular</item>
     </style>
+
+    <style name="ButtonStyle.NavigationItem" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="cornerRadius">0dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconPadding">32dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+
+    <style name="AppTheme.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar">
+        <!--        <item name="contentInsetStart">0dp</item>-->
+        <!--        <item name="contentInsetStartWithNavigation">0dp</item>-->
+    </style>
+
+    <!--    <style name="Widget.NavigationView" parent="Widget.MaterialComponents.NavigationView">-->
+    <!--        <item name="insetForeground">@android:color/transparent</item>-->
+    <!--        <item name="android:background">@android:color/transparent</item>-->
+    <!--        <item name="elevation">0dp</item>-->
+    <!--    </style>-->
 
 </resources>

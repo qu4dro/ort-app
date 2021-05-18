@@ -25,6 +25,15 @@
         <action
             android:id="@+id/action_nearbyLocationsFragment_to_addLocationFragment"
             app:destination="@id/addLocationFragment" />
+        <action
+            android:id="@+id/action_nearbyLocationsFragment_self"
+            app:destination="@id/nearbyLocationsFragment" />
+        <action
+            android:id="@+id/action_nearbyLocationsFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_nearbyLocationsFragment_to_savedLocationsFragment"
+            app:destination="@id/savedLocationsFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedLocationsFragment"

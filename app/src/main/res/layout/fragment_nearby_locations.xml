@@ -10,20 +10,19 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingBottom="16dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="56dp"
+            android:transitionGroup="true"
+            app:paddingTopSystemWindowInsets="@{true}"
+            app:paddingBottomSystemWindowInsets="@{true}"
             android:id="@+id/rv_nearby_locations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:locationsPreviewList="@{viewModel.nearbyLocations.data}" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
