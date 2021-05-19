@@ -7,39 +7,15 @@
         <item name="cardCornerRadius">0dp</item>
     </style>
 
-    <style name="CardViewStyle.RoundedTop" parent="@style/Widget.MaterialComponents.CardView">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+    <style name="TextStyleBold" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/montserrat_bold</item>
     </style>
 
-    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSizeTopLeft">16dp</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-        <item name="cornerSizeBottomLeft">0dp</item>
+    <style name="TextStyleRegular" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24sp</item>
     </style>
 
-    <style name="ButtonStyle.NavigationItem" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="cornerRadius">0dp</item>
-        <item name="elevation">0dp</item>
-        <item name="android:minWidth">0dp</item>
-        <item name="android:minHeight">0dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="iconPadding">32dp</item>
-        <item name="backgroundTint">@android:color/transparent</item>
-    </style>
-
-    <style name="AppTheme.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar">
-        <!--        <item name="contentInsetStart">0dp</item>-->
-        <!--        <item name="contentInsetStartWithNavigation">0dp</item>-->
-    </style>
-
-    <!--    <style name="Widget.NavigationView" parent="Widget.MaterialComponents.NavigationView">-->
-    <!--        <item name="insetForeground">@android:color/transparent</item>-->
-    <!--        <item name="android:background">@android:color/transparent</item>-->
-    <!--        <item name="elevation">0dp</item>-->
-    <!--    </style>-->
 
 </resources>
