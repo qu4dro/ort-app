@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_ort.*
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.adapters.ReviewAdapter
@@ -53,5 +55,16 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (activity as OrtActivity).bab_menu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.back -> findNavController().navigateUp()
+                else -> true
+            }
+        }
     }
 }
