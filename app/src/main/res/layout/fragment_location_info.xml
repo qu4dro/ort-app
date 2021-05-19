@@ -33,7 +33,6 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_location_name"
-                style="@style/TextStyle.Bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{locationPreview.name}"
@@ -44,7 +43,6 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_location_address"
-                style="@style/TextStyle.Semibold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -56,7 +54,6 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_location_range"
-                style="@style/TextStyle.Regular"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -89,7 +86,6 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_location_working_time"
-                style="@style/TextStyle.Regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -101,7 +97,6 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_location_services"
-                style="@style/TextStyle.Regular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -129,7 +124,6 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_margin="16dp"
                     android:id="@+id/tv_add_location"
-                    style="@style/TextStyle.Bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Reviews"

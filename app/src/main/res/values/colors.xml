@@ -11,5 +11,13 @@
     <color name="grey_50_alpha_060">#99eef0f2</color>
     <color name="black_900_alpha_020">#33000000</color>
     <color name="black_900_alpha_060">#99000000</color>
+    <color name="black_900">#000000</color>
+    <color name="black_800">#121212</color>
+    <color name="red_200">#cf7779</color>
+    <color name="red_400">#ff4c5d</color>
+    <color name="white_50">#ffffff</color>
+    <color name="blue_50">#eef0f2</color>
+
+
 
 </resources>

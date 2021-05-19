@@ -7,6 +7,11 @@
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textColor">@color/black</item>
+
+        <item name="android:colorBackground">@color/blue_50</item>
+        <item name="colorSurface">@color/white_50</item>
+        <item name="colorError">@color/red_400</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/purple_500</item>
         <item name="colorSecondaryVariant">@color/purple_700</item>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="CardViewStyle.LocationPreviewStyle" parent="Widget.MaterialComponents.CardView">
-        <item name="cardElevation">2dp</item>
+    <style name="CardViewStyle.ItemStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardElevation">0dp</item>
         <item name="cardCornerRadius">0dp</item>
     </style>
 
@@ -16,30 +17,6 @@
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
-    </style>
-
-    <style name="TextStyle.Extrabold" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textSize">22sp</item>
-        <item name="android:fontFamily">@font/montserrat_extrabold</item>
-        <item name="fontFamily">@font/montserrat_bold</item>
-    </style>
-
-    <style name="TextStyle.Bold" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textSize">18sp</item>
-        <item name="android:fontFamily">@font/montserrat_bold</item>
-        <item name="fontFamily">@font/montserrat_bold</item>
-    </style>
-
-    <style name="TextStyle.Semibold" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/montserrat_semibold</item>
-        <item name="fontFamily">@font/montserrat_semibold</item>
-    </style>
-
-    <style name="TextStyle.Regular" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/montserrat_regular</item>
-        <item name="fontFamily">@font/montserrat_regular</item>
     </style>
 
     <style name="ButtonStyle.NavigationItem" parent="Widget.MaterialComponents.Button.TextButton">
