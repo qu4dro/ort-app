@@ -1,22 +1,13 @@
 package ru.orlovvv.ort.ui
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.MenuRes
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.blue
-import androidx.core.graphics.green
-import androidx.core.graphics.red
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.animation.AnimationUtils.lerp
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.math.MathUtils
 import kotlinx.android.synthetic.main.activity_ort.*
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.ActivityOrtBinding
@@ -44,8 +35,8 @@ class OrtActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.babMenu.setNavigationOnClickListener {
-            val dialog = MenuDialog()
-            dialog.show(supportFragmentManager, "menuDialog")
+            val dialog = BottomNavigationDrawerFragment()
+            dialog.show(supportFragmentManager, "navigationDrawerMenu")
         }
 
         setNavigationListeners()
@@ -64,7 +55,6 @@ class OrtActivity : AppCompatActivity() {
     private fun setBottomAppBarForNearby(@MenuRes menuRes: Int) {
         binding.run {
             fab.setImageState(intArrayOf(-android.R.attr.state_activated), true)
-            babMenu.setNavigationIcon(R.drawable.ic_menu_24)
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
             babMenu.performShow()
@@ -75,7 +65,6 @@ class OrtActivity : AppCompatActivity() {
     private fun setBottomAppBarForSaved(@MenuRes menuRes: Int) {
         binding.run {
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
-            babMenu.navigationIcon = null
             babMenu.navigationIcon?.setVisible(false, true)
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
@@ -86,7 +75,6 @@ class OrtActivity : AppCompatActivity() {
 
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
         binding.run {
-            babMenu.navigationIcon = null
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)

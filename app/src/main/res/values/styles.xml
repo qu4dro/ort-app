@@ -54,7 +54,6 @@
         <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
-
     <style name="AppTheme.BottomAppBar" parent="@style/Widget.MaterialComponents.BottomAppBar">
         <!--        <item name="contentInsetStart">0dp</item>-->
         <!--        <item name="contentInsetStartWithNavigation">0dp</item>-->
