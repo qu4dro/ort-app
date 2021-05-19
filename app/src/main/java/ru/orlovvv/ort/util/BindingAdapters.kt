@@ -10,12 +10,16 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.appcompat.content.res.AppCompatResources.getColorStateList
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.elevation.ElevationOverlayProvider
+import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.adapters.ReviewAdapter
 import ru.orlovvv.ort.models.LocationPreview
@@ -31,6 +35,23 @@ fun bindLocationsPreviewRecyclerView(recyclerView: RecyclerView, data: List<Loca
 fun bindReviewsRecyclerView(recyclerView: RecyclerView, data: List<Review>?) {
     val adapter = recyclerView.adapter as ReviewAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("ratingColor")
+fun bindLocationRatingColor(chip: Chip, value: Int) {
+    when (value) {
+        Rating.FIVE.value -> chip.setChipBackgroundColorResource(R.color.rating_5)
+        Rating.FOUR.value -> chip.setChipBackgroundColorResource(R.color.rating_4)
+        Rating.THREE.value -> chip.setChipBackgroundColorResource(R.color.rating_3)
+        Rating.TWO.value -> chip.setChipBackgroundColorResource(R.color.rating_2)
+        Rating.ONE.value -> chip.setChipBackgroundColorResource(R.color.rating_1)
+        else -> {
+            chip.setChipBackgroundColorResource(R.color.blue_50)
+            chip.setTextColor(ContextCompat.getColor(chip.context, R.color.black_900))
+            chip.text = ":("
+        }
+    }
+
 }
 
 

@@ -17,5 +17,11 @@
         <item name="lineHeight">24sp</item>
     </style>
 
+    <style name="TextStyleSemiBold" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
 
 </resources>

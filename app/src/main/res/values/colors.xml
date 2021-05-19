@@ -19,4 +19,9 @@
     <color name="blue_300">#8ca2ae</color>
     <color name="blue_700">#344955</color>
     <color name="blue_800">#232f34</color>
+    <color name="rating_5">#66bb6a</color>
+    <color name="rating_4">#81c784</color>
+    <color name="rating_3">@color/orange_400</color>
+    <color name="rating_2">@color/red_200</color>
+    <color name="rating_1">@color/red_400</color>
 </resources>
