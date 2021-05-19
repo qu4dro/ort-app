@@ -42,7 +42,7 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
             lifecycleOwner = this@LocationInfoFragment
             viewModel = ortViewModel
             locationPreview = location
-            rvReviews.apply {
+            rvReviewsBlock.apply {
                 layoutManager = LinearLayoutManager(
                     inflater.context,
                     LinearLayoutManager.VERTICAL,

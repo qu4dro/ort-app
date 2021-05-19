@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.MenuRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomappbar.BottomAppBar
 import kotlinx.android.synthetic.main.activity_ort.*
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.ActivityOrtBinding
@@ -48,6 +50,7 @@ class OrtActivity : AppCompatActivity() {
         return when (dest?.id) {
             R.id.savedLocationsFragment -> R.menu.bottom_app_bar_saved
             R.id.mapsFragment -> R.menu.bottom_app_bar_map
+            R.id.locationInfoFragment -> R.menu.bottom_app_bar_location_info
             else -> R.menu.bottom_app_bar_nearby
         }
     }
@@ -55,10 +58,12 @@ class OrtActivity : AppCompatActivity() {
     private fun setBottomAppBarForNearby(@MenuRes menuRes: Int) {
         binding.run {
             fab.setImageState(intArrayOf(-android.R.attr.state_activated), true)
+            fab.setImageResource((R.drawable.ic_add_24))
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
             babMenu.performShow()
             fab.show()
+            babMenu.setFabAlignmentModeAndReplaceMenu(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, menuRes)
         }
     }
 
@@ -76,18 +81,22 @@ class OrtActivity : AppCompatActivity() {
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
         binding.run {
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
-            babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
+            babMenu.visibility = View.VISIBLE
             babMenu.performShow()
             fab.show()
         }
     }
 
-    private fun setBottomAppBarForLocationInfo() {
+    private fun setBottomAppBarForLocationInfo(@MenuRes menuRes: Int) {
         binding.run {
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
-            babMenu.performHide()
-            fab.hide()
+            fab.setImageResource((R.drawable.ic_write_review_24))
+            babMenu.visibility = View.VISIBLE
+            babMenu.replaceMenu(menuRes)
+            babMenu.performShow()
+            fab.show()
+            binding.babMenu.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
         }
     }
 
@@ -107,11 +116,12 @@ class OrtActivity : AppCompatActivity() {
                     }
 
                     R.id.locationInfoFragment -> {
-                        setBottomAppBarForLocationInfo()
+                        setBottomAppBarForLocationInfo(getBottomAppBarMenuForDestination(destination))
                     }
                 }
 
             }
     }
+
 
 }
