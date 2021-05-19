@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.orlovvv.ort.R
@@ -62,6 +63,11 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
                 bundle
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ortViewModel.getNearbyLocationsFromServer()
     }
 
 }

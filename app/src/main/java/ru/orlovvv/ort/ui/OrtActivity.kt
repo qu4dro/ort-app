@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.MenuRes
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -15,10 +14,14 @@ import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.ActivityOrtBinding
 import ru.orlovvv.ort.db.OrtDatabase
 import ru.orlovvv.ort.repository.OrtRepository
+import ru.orlovvv.ort.ui.dialogs.AddLocationDialogFragment
+import ru.orlovvv.ort.ui.dialogs.BottomNavigationDrawerFragment
 
 class OrtActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityOrtBinding
+    private lateinit var _binding: ActivityOrtBinding
+    val binding: ActivityOrtBinding
+        get() = _binding
     private lateinit var _ortViewModel: OrtViewModel
     val ortViewModel: OrtViewModel
         get() = _ortViewModel
@@ -26,7 +29,7 @@ class OrtActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityOrtBinding.inflate(layoutInflater)
+        _binding = ActivityOrtBinding.inflate(layoutInflater)
 
         val ortDatabase = OrtDatabase(this)
         val ortRepository = OrtRepository(ortDatabase)
@@ -34,9 +37,9 @@ class OrtActivity : AppCompatActivity() {
         _ortViewModel =
             ViewModelProvider(this, ortViewModelProviderFactory).get(OrtViewModel::class.java)
 
-        setContentView(binding.root)
+        setContentView(_binding.root)
 
-        binding.babMenu.setNavigationOnClickListener {
+        _binding.babMenu.setNavigationOnClickListener {
             val dialog = BottomNavigationDrawerFragment()
             dialog.show(supportFragmentManager, "navigationDrawerMenu")
         }
@@ -56,19 +59,27 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun setBottomAppBarForNearby(@MenuRes menuRes: Int) {
-        binding.run {
+        _binding.run {
             fab.setImageState(intArrayOf(-android.R.attr.state_activated), true)
             fab.setImageResource((R.drawable.ic_add_24))
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
             babMenu.performShow()
             fab.show()
-            babMenu.setFabAlignmentModeAndReplaceMenu(BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, menuRes)
+            babMenu.setFabAlignmentModeAndReplaceMenu(
+                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER,
+                menuRes
+            )
+
+            _binding.fab.setOnClickListener {
+                val dialog = AddLocationDialogFragment()
+                dialog.show(supportFragmentManager, "addLocationFragmentDialog")
+            }
         }
     }
 
     private fun setBottomAppBarForSaved(@MenuRes menuRes: Int) {
-        binding.run {
+        _binding.run {
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
             babMenu.navigationIcon?.setVisible(false, true)
             babMenu.visibility = View.VISIBLE
@@ -79,7 +90,7 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
-        binding.run {
+        _binding.run {
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
             babMenu.replaceMenu(menuRes)
             babMenu.visibility = View.VISIBLE
@@ -89,14 +100,14 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun setBottomAppBarForLocationInfo(@MenuRes menuRes: Int) {
-        binding.run {
+        _binding.run {
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
             fab.setImageResource((R.drawable.ic_write_review_24))
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
             babMenu.performShow()
             fab.show()
-            binding.babMenu.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+            _binding.babMenu.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
         }
     }
 

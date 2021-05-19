@@ -60,7 +60,11 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as OrtActivity).bab_menu.setOnMenuItemClickListener {
+        (activity as OrtActivity).binding.fab.setOnClickListener {
+
+        }
+
+        (activity as OrtActivity).binding.babMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.back -> findNavController().navigateUp()
                 else -> true

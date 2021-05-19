@@ -16,9 +16,9 @@ data class LocationPost(
     @Json(name = "daysWeekDays")
     val daysWeekDays: String,
     @Json(name = "openTimeWeekDays")
-    val openTimeWeekDays: String,
+    val openTimeWeekDays: String = " ",
     @Json(name = "closeTimeWeekDays")
-    val closeTimeWeekDays: String,
+    val closeTimeWeekDays: String = " ",
     @Json(name = "isClosedWeekDays")
     val isClosedWeekDays: Boolean = false,
     @Json(name = "daysWeekend")
