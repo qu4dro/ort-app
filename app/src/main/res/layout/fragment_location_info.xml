@@ -13,6 +13,8 @@
             name="viewModel"
             type="ru.orlovvv.ort.ui.OrtViewModel" />
 
+        <import type="android.view.View" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -125,14 +127,23 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.currentLocationInfo.data.reviews == null ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@id/cv_information_block"
+                app:layout_constraintStart_toStartOf="@id/cv_information_block"
+                app:layout_constraintTop_toBottomOf="@id/cv_information_block" />
+
 
             <androidx.recyclerview.widget.RecyclerView
-                android:paddingTop="2dp"
                 android:id="@+id/rv_reviews_block"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
+                android:paddingTop="2dp"
                 android:paddingBottom="56dp"
                 android:transitionGroup="true"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"

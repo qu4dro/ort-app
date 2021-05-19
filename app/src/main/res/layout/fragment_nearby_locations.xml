@@ -8,21 +8,41 @@
             name="viewModel"
             type="ru.orlovvv.ort.ui.OrtViewModel" />
 
+        <import type="android.view.View" />
+
     </data>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="2dp"
-            android:paddingBottom="56dp"
-            android:transitionGroup="true"
-            app:paddingTopSystemWindowInsets="@{true}"
-            app:paddingBottomSystemWindowInsets="@{true}"
-            android:id="@+id/rv_nearby_locations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:locationsPreviewList="@{viewModel.nearbyLocations.data}" />
+     <androidx.constraintlayout.widget.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+         <androidx.recyclerview.widget.RecyclerView
+             android:paddingTop="2dp"
+             android:paddingBottom="56dp"
+             android:transitionGroup="true"
+             app:paddingTopSystemWindowInsets="@{true}"
+             app:paddingBottomSystemWindowInsets="@{true}"
+             android:id="@+id/rv_nearby_locations"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:clipToPadding="false"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             app:locationsPreviewList="@{viewModel.nearbyLocations.data}" />
+
+         <com.google.android.material.progressindicator.CircularProgressIndicator
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:indeterminate="true"
+             android:visibility="@{viewModel.nearbyLocations.data == null ? View.VISIBLE : View.GONE}"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintBottom_toBottomOf="parent"
+             />
+
+     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
