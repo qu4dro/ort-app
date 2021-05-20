@@ -81,7 +81,6 @@ class OrtActivity : AppCompatActivity() {
     private fun setBottomAppBarForSaved(@MenuRes menuRes: Int) {
         _binding.run {
             fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
-            babMenu.navigationIcon?.setVisible(false, true)
             babMenu.visibility = View.VISIBLE
             babMenu.replaceMenu(menuRes)
             babMenu.performShow()
