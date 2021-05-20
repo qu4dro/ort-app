@@ -46,12 +46,19 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
         bottomDialog = super.onCreateDialog(savedInstanceState)
         bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
+        setOnShowDialogListener()
+
+        return bottomDialog
+    }
+
+    private fun setOnShowDialogListener() {
         bottomDialog.setOnShowListener {
             val bottomSheet =
                 (it as BottomSheetDialog).findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
             val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet!!)
             bottomSheetBehavior.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
+
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     when (newState) {
                         BottomSheetBehavior.STATE_HIDDEN -> dismiss()
@@ -65,18 +72,8 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
                     }
                 }
-
             })
-
         }
-
-        return bottomDialog
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
     }
 
 }

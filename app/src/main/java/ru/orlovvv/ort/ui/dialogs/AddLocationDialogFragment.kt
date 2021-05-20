@@ -44,12 +44,62 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
         bottomDialog = super.onCreateDialog(savedInstanceState)
         bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
+        setOnShowDialogListener()
+
+        return bottomDialog
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.ivCloseDialog.setOnClickListener {
+            bottomDialog.dismiss()
+        }
+
+        binding.btnCreateLocation.setOnClickListener {
+
+            if (binding.etLocationName.text.toString().isEmpty()) binding.tilLocationName.error =
+                R.string.required.toString()
+            if (binding.etLocationTags.text.toString().isEmpty()) binding.tilLocationTags.error =
+                R.string.required.toString()
+
+            if (binding.etLocationName.text.toString()
+                    .isNotEmpty() && binding.etLocationTags.text.toString().isNotEmpty()
+            ) {
+                createLocation()
+                bottomDialog.dismiss()
+            }
+        }
+
+        binding.etLocationName.setOnClickListener {
+            binding.tilLocationName.error = null
+        }
+
+        binding.etLocationTags.setOnClickListener {
+            binding.tilLocationTags.error = null
+        }
+    }
+
+    private fun createLocation() {
+        ortViewModel.addLocation(
+            LocationPost(
+                binding.etLocationName.text.toString(),
+                binding.tvLocationAddress.text.toString(),
+                binding.etLocationTags.text.toString(),
+                ortViewModel.lng.value!!,
+                ortViewModel.lat.value!!
+            )
+        )
+    }
+
+    private fun setOnShowDialogListener() {
         bottomDialog.setOnShowListener {
             val bottomSheet =
                 (it as BottomSheetDialog).findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
             val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet!!)
             bottomSheetBehavior.addBottomSheetCallback(object :
                 BottomSheetBehavior.BottomSheetCallback() {
+
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     when (newState) {
                         BottomSheetBehavior.STATE_HIDDEN -> dismiss()
@@ -63,53 +113,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                         binding.ivCloseDialog.visibility = View.GONE
                     }
                 }
-
             })
-
-        }
-
-        return bottomDialog
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.ivCloseDialog.setOnClickListener{
-            bottomDialog.dismiss()
-        }
-        binding.btnCreateLocation.setOnClickListener {
-            if (binding.etLocationName.text.toString().isEmpty()) binding.tilLocationName.error =
-                R.string.required.toString()
-            if (binding.etLocationTags.text.toString().isEmpty()) binding.tilLocationTags.error =
-                R.string.required.toString()
-            if (binding.etLocationName.text.toString()
-                    .isNotEmpty() && binding.etLocationTags.text.toString().isNotEmpty()
-            ) {
-
-                ortViewModel.addLocation(
-                    LocationPost(
-                        binding.etLocationName.text.toString(),
-                        binding.tvLocationAddress.text.toString(),
-                        binding.etLocationTags.text.toString(),
-                        104.2997634,
-                        52.2225774,
-                        binding.etLocationDate.text.toString()
-                    )
-                )
-
-            }
-
-            bottomDialog.dismiss()
-
-        }
-
-        binding.etLocationName.setOnClickListener {
-            binding.tilLocationName.error = null
-        }
-
-        binding.etLocationTags.setOnClickListener {
-            binding.tilLocationTags.error = null
         }
     }
-
 }

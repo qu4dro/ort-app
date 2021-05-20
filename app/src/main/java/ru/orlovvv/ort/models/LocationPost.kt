@@ -14,7 +14,7 @@ data class LocationPost(
     @Json(name = "lat")
     val lat: Double,
     @Json(name = "daysWeekDays")
-    val daysWeekDays: String,
+    val daysWeekDays: String = " ",
     @Json(name = "openTimeWeekDays")
     val openTimeWeekDays: String = " ",
     @Json(name = "closeTimeWeekDays")

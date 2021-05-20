@@ -65,9 +65,4 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        ortViewModel.getNearbyLocationsFromServer()
-    }
-
 }
