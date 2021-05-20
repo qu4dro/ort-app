@@ -39,10 +39,15 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
     val lng: LiveData<Double>
         get() = _lng
 
+    private val _currentAddressString: MutableLiveData<String> = MutableLiveData()
+    val currentAddressString: LiveData<String>
+        get() = _currentAddressString
+
 
     init {
         _lat.value = 52.2225774
         _lng.value = 104.2997634
+        _currentAddressString.value = "Test address string"
         getNearbyLocationsFromServer()
     }
 

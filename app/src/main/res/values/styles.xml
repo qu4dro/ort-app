@@ -23,5 +23,10 @@
         <item name="lineHeight">24sp</item>
     </style>
 
+    <style name="AppBottomSheetDialogTheme"
+        parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
 
 </resources>

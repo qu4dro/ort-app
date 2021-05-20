@@ -37,6 +37,12 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
             viewModel = ortViewModel
         }
 
+        binding.etLocationAddress.setText(ortViewModel.currentAddressString.value)
+
+        binding.ivGetAddress.setOnClickListener {
+            binding.etLocationAddress.setText(ortViewModel.currentAddressString.value)
+        }
+
         return binding.root
     }
 
@@ -84,7 +90,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
         ortViewModel.addLocation(
             LocationPost(
                 binding.etLocationName.text.toString(),
-                binding.tvLocationAddress.text.toString(),
+                binding.etLocationAddress.text.toString(),
                 binding.etLocationTags.text.toString(),
                 ortViewModel.lng.value!!,
                 ortViewModel.lat.value!!
@@ -102,7 +108,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     when (newState) {
-                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
+//                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
                     }
                 }
 
