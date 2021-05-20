@@ -26,6 +26,7 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
     private lateinit var ortViewModel: OrtViewModel
     private lateinit var binding: FragmentLocationInfoBinding
     private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var location: LocationPreview
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +34,7 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
         savedInstanceState: Bundle?
     ): View? {
 
-        val location = arguments?.get("location") as LocationPreview
+        location = arguments?.get("location") as LocationPreview
 
         reviewAdapter = ReviewAdapter()
 
@@ -67,6 +68,10 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
         (activity as OrtActivity).binding.babMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.back -> findNavController().navigateUp()
+                R.id.save -> {
+                    ortViewModel.saveLocation(location)
+                    true
+                }
                 else -> true
             }
         }
