@@ -2,7 +2,8 @@ package ru.orlovvv.ort.ui.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,9 +66,9 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
         binding.btnCreateLocation.setOnClickListener {
 
             if (binding.etLocationName.text.toString().isEmpty()) binding.tilLocationName.error =
-                R.string.required.toString()
+                getString(R.string.required)
             if (binding.etLocationTags.text.toString().isEmpty()) binding.tilLocationTags.error =
-                R.string.required.toString()
+                getString(R.string.required)
 
             if (binding.etLocationName.text.toString()
                     .isNotEmpty() && binding.etLocationTags.text.toString().isNotEmpty()
@@ -75,15 +76,14 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 createLocation()
                 bottomDialog.dismiss()
             }
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.tilLocationName.error = null
+                binding.tilLocationTags.error = null
+            }, 2000)
+
         }
 
-        binding.etLocationName.setOnClickListener {
-            binding.tilLocationName.error = null
-        }
-
-        binding.etLocationTags.setOnClickListener {
-            binding.tilLocationTags.error = null
-        }
     }
 
     private fun createLocation() {
