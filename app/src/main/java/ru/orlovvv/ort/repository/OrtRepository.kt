@@ -5,6 +5,8 @@ import ru.orlovvv.ort.api.RetrofitInstance
 import ru.orlovvv.ort.db.OrtDatabase
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.LocationPreview
+import ru.orlovvv.ort.models.Review
+import ru.orlovvv.ort.models.ReviewPost
 
 class OrtRepository(private val ortDB: OrtDatabase) {
 
@@ -14,6 +16,9 @@ class OrtRepository(private val ortDB: OrtDatabase) {
 
     suspend fun addLocation(location: LocationPost) =
         RetrofitInstance.api.addLocation(location)
+
+    suspend fun addReview(review: ReviewPost, locationId: String) =
+        RetrofitInstance.api.addReview(review, locationId)
 
     suspend fun getLocationInfo(id: String) = RetrofitInstance.api.getLocationInfo(id)
 

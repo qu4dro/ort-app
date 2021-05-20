@@ -18,6 +18,7 @@ import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
 import ru.orlovvv.ort.databinding.FragmentAddReviewDialogBinding
 import ru.orlovvv.ort.models.LocationPost
+import ru.orlovvv.ort.models.ReviewPost
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
@@ -84,7 +85,13 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun addReview() {
-
+        ortViewModel.addReview(
+            ReviewPost(
+                binding.etAuthorName.text.toString(),
+                binding.etReviewText.text.toString(),
+                binding.acRating.text.toString()
+            ), ortViewModel.currentLocationInfo.value?.data!!._id
+        )
 
     }
 

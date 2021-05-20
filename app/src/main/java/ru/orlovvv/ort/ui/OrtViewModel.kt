@@ -7,6 +7,7 @@ import retrofit2.Response
 import ru.orlovvv.ort.models.LocationInfo
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.LocationPreview
+import ru.orlovvv.ort.models.ReviewPost
 import ru.orlovvv.ort.repository.OrtRepository
 import ru.orlovvv.ort.util.Resource
 import java.lang.Exception
@@ -106,6 +107,10 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
 
     fun addLocation(location: LocationPost) = viewModelScope.launch {
         ortRepository.addLocation(location)
+    }
+
+    fun addReview(review: ReviewPost, locationId: String) = viewModelScope.launch {
+        ortRepository.addReview(review, locationId)
     }
 
 }
