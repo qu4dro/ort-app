@@ -33,7 +33,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 app:layout_constraintEnd_toStartOf="@id/chip_review_rating"
-                android:text="@{review.date}"
+                app:formattedDate="@{review.date}"
                 android:textAppearance="@style/TextStyleSemiBold"
                 tools:text="24.04.24"/>
 

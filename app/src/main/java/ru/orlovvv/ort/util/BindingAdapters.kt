@@ -1,19 +1,24 @@
 package ru.orlovvv.ort.util
 
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
+import com.google.android.material.textview.MaterialTextView
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.adapters.ReviewAdapter
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.models.Review
 import java.math.RoundingMode
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 @BindingAdapter("locationsPreviewList")
@@ -56,6 +61,18 @@ fun bindRangeBeautiful(chip: Chip, value: Double) {
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
+@BindingAdapter("formattedDate")
+fun bindRangeBeautiful(textView: MaterialTextView, value: String) {
+    val dateFormatted: String =
+        LocalDateTime.parse(
+            value,
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+        ).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString()
+
+    textView.text = dateFormatted
+
+}
 
 // copy/paste from https://github.com/material-components/material-components-android-examples/tree/develop/Reply
 @BindingAdapter("layoutFullscreen")
