@@ -61,9 +61,9 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
 
         binding.btnCreateReview.setOnClickListener {
 
-            if (binding.etAuthorName.text.toString().isEmpty()) binding.etAuthorName.error =
+            if (binding.etAuthorName.text.toString().isEmpty()) binding.tilAuthorName.error =
                 getString(R.string.required)
-            if (binding.etReviewText.text.toString().isEmpty()) binding.etReviewText.error =
+            if (binding.etReviewText.text.toString().isEmpty()) binding.tilReviewText.error =
                 getString(R.string.required)
 
             if (binding.etReviewText.text.toString()
@@ -71,6 +71,7 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
             ) {
                 addReview()
                 bottomDialog.dismiss()
+                ortViewModel.getLocationInfo(ortViewModel.currentLocationInfo.value?.data!!._id)
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
