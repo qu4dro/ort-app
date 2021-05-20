@@ -117,7 +117,7 @@
                         android:layout_marginTop="8dp"
                         android:clickable="false"
                         android:maxLines="1"
-                        android:text="@{String.valueOf(locationPreview.range)}"
+                        app:rangeBeautify="@{locationPreview.range}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_location_address"
                         tools:text="Location range" />
