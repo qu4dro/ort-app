@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.orlovvv.ort.R
@@ -42,7 +43,27 @@ class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
             }
         }
 
+        setSearchView()
+
         return binding.root
+    }
+
+    private fun setSearchView() {
+
+        val searchView = (activity as OrtActivity).binding.babMenu.menu.findItem(R.id.search).actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                ortViewModel.searchQuery.value = newText
+//                ortViewModel.getSortOrUpdateStickers()
+                return true
+            }
+
+        })
     }
 
 }

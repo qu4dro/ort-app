@@ -24,7 +24,7 @@ class OrtRepository(private val ortDB: OrtDatabase) {
     suspend fun deleteLocation(locationPreview: LocationPreview) =
         ortDB.getOrtDao().deleteLocation(locationPreview)
 
-    fun getSavedLocations(): LiveData<List<LocationPreview>> = ortDB.getOrtDao().getAllLocations()
+    fun getSavedLocations(searchQuery: String): LiveData<List<LocationPreview>> = ortDB.getOrtDao().getAllLocations(searchQuery)
 
 
 }

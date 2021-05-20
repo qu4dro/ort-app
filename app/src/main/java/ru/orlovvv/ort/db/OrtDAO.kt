@@ -13,7 +13,7 @@ interface OrtDAO {
     @Delete
     suspend fun deleteLocation(locationPreview: LocationPreview)
 
-    @Query(value = "SELECT * FROM locations_preview ORDER BY range")
-    fun getAllLocations(): LiveData<List<LocationPreview>>
+    @Query(value = "SELECT * FROM locations_preview WHERE name LIKE '%' || :searchQuery || '%' ORDER BY range")
+    fun getAllLocations(searchQuery: String): LiveData<List<LocationPreview>>
 
 }

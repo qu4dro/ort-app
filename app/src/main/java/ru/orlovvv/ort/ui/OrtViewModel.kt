@@ -1,10 +1,7 @@
 package ru.orlovvv.ort.ui
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import ru.orlovvv.ort.models.LocationInfo
@@ -18,7 +15,16 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
 
     private var locationsResponse: List<LocationPreview>? = null
 
-    private var _savedLocations = ortRepository.getSavedLocations()
+    var searchQuery = MutableLiveData("")
+
+//    private var _savedLocations = ortRepository.getSavedLocations()
+//    val savedLocations
+//        get() = _savedLocations
+
+    private var _savedLocations = Transformations.switchMap(searchQuery) {
+        ortRepository.getSavedLocations(it.trim())
+    }
+
     val savedLocations
         get() = _savedLocations
 
