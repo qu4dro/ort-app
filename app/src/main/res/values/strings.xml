@@ -6,4 +6,6 @@
     <string name="create_location">Create location</string>
     <string name="required">Required</string>
     <string name="search">Search</string>
+    <string name="meters">%s m</string>
+    <string name="kilometers">%s km</string>
 </resources>
