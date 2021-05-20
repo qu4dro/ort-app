@@ -8,4 +8,10 @@
     <string name="search">Search</string>
     <string name="meters">%s m</string>
     <string name="kilometers">%s km</string>
+    <string name="add_review">Add review</string>
+    <string name="review_text">Review text</string>
+    <string name="name">Name</string>
+    <string name="new_review">New review</string>
+    <string name="address">Address</string>
+    <string name="rating">Rating</string>
 </resources>

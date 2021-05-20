@@ -15,6 +15,7 @@ import ru.orlovvv.ort.databinding.ActivityOrtBinding
 import ru.orlovvv.ort.db.OrtDatabase
 import ru.orlovvv.ort.repository.OrtRepository
 import ru.orlovvv.ort.ui.dialogs.AddLocationDialogFragment
+import ru.orlovvv.ort.ui.dialogs.AddReviewDialogFragment
 import ru.orlovvv.ort.ui.dialogs.BottomNavigationDrawerFragment
 
 class OrtActivity : AppCompatActivity() {
@@ -107,6 +108,11 @@ class OrtActivity : AppCompatActivity() {
             babMenu.performShow()
             fab.show()
             _binding.babMenu.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
+
+            _binding.fab.setOnClickListener {
+                val dialog = AddReviewDialogFragment()
+                dialog.show(supportFragmentManager, "addReviewFragmentDialog")
+            }
         }
     }
 
