@@ -1,5 +1,6 @@
 package ru.orlovvv.ort.ui
 
+import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,6 +26,8 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 
 class OrtActivity : AppCompatActivity() {
+
+    private val LOCATION_PERMISSION_REQUEST_CODE = 2000
 
     private lateinit var _binding: ActivityOrtBinding
     val binding: ActivityOrtBinding
@@ -55,8 +58,8 @@ class OrtActivity : AppCompatActivity() {
             val dialog = BottomNavigationDrawerFragment()
             dialog.show(supportFragmentManager, "navigationDrawerMenu")
         }
-
         setNavigationListeners()
+        prepRequestLocationUpdates()
     }
 
     @MenuRes
@@ -152,6 +155,49 @@ class OrtActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+
+    //location coordinates code
+    private fun prepRequestLocationUpdates() {
+        if (ContextCompat.checkSelfPermission(
+                applicationContext!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            requestLocationUpdates()
+        } else {
+            val permissionRequest = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+            requestPermissions(permissionRequest, LOCATION_PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    private fun requestLocationUpdates() {
+        coordinatesViewModel.coordinates.observe(this, Observer {
+            it.lat
+            it.lng
+        })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            LOCATION_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    requestLocationUpdates()
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "Check location permission",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
 

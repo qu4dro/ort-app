@@ -31,28 +31,7 @@ class LoadingFragment : Fragment(R.layout.fragment_loading) {
         }
 
         // work on this in progress
-        coordinatesViewModel.coordinates.observe(viewLifecycleOwner, Observer {
-            if (checkCoordinates(it.lat, it.lng)) {
-                getNearbyLocations(it.lat, it.lng)
-            }
-        })
-    }
 
-    private fun getNearbyLocations(lat: String, lng: String) {
-        ortViewModel.getNearbyLocationsFromServer(lng, lat)
-
-        ortViewModel.nearbyLocations.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is Resource.Success -> findNavController().navigate(R.id.action_loadingFragment_to_nearbyLocationsFragment)
-                is Resource.Loading -> false
-                is Resource.Error -> false
-            }
-        })
-
-    }
-
-    private fun checkCoordinates(lat: String?, lng: String?): Boolean {
-        return (lat != null && lng != null)
     }
 
 }
