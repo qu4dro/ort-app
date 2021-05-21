@@ -77,11 +77,9 @@ class OrtActivity : AppCompatActivity() {
 
     private fun requestLocationUpdates() {
 
-
         _coordinatesViewModel.coordinates.observe(this, Observer {
 
         })
-
 
     }
 
@@ -192,8 +190,12 @@ class OrtActivity : AppCompatActivity() {
                     R.id.locationInfoFragment -> {
                         setBottomAppBarForLocationInfo(getBottomAppBarMenuForDestination(destination))
                     }
-                }
 
+                    R.id.loadingFragment -> {
+                        binding.babMenu.visibility = View.INVISIBLE
+                        binding.fab.visibility = View.INVISIBLE
+                    }
+                }
             }
     }
 

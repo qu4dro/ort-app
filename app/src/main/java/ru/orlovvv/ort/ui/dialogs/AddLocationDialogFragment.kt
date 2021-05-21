@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
 import ru.orlovvv.ort.models.LocationPost
+import ru.orlovvv.ort.ui.CoordinatesViewModel
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
@@ -22,6 +23,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var ortViewModel: OrtViewModel
     private lateinit var binding: FragmentAddLocationDialogBinding
+    private lateinit var coordinatesViewModel: CoordinatesViewModel
     private lateinit var bottomDialog: Dialog
 
     override fun onCreateView(
@@ -32,6 +34,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
         binding = FragmentAddLocationDialogBinding.inflate(inflater, container, false)
         ortViewModel = (activity as OrtActivity).ortViewModel
+        coordinatesViewModel = (activity as OrtActivity).coordinatesViewModel
 
         binding.apply {
             lifecycleOwner = this@AddLocationDialogFragment
@@ -75,7 +78,6 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
             ) {
                 createLocation()
                 bottomDialog.dismiss()
-//                ortViewModel.getNearbyLocationsFromServer()
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -83,6 +85,12 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 binding.tilLocationTags.error = null
             }, 2000)
 
+
+            bottomDialog.dismiss()
+            ortViewModel.getNearbyLocationsFromServer(
+                coordinatesViewModel.coordinates.value!!.lng,
+                coordinatesViewModel.coordinates.value!!.lat
+            )
         }
 
     }
@@ -93,8 +101,8 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 binding.etLocationName.text.toString(),
                 binding.etLocationAddress.text.toString(),
                 binding.etLocationTags.text.toString(),
-                ortViewModel.lng.value!!,
-                ortViewModel.lat.value!!
+                coordinatesViewModel.coordinates.value!!.lng.toDouble(),
+                coordinatesViewModel.coordinates.value!!.lat.toDouble()
             )
         )
     }

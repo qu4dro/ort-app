@@ -14,8 +14,6 @@ import java.lang.Exception
 
 class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
 
-    private var locationsResponse: List<LocationPreview>? = null
-
     var searchQuery = MutableLiveData("")
 
     private var _savedLocations = Transformations.switchMap(searchQuery) {
@@ -33,22 +31,11 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
     val currentLocationInfo: LiveData<Resource<LocationInfo>>
         get() = _currentLocationInfo
 
-    private val _lat: MutableLiveData<Double> = MutableLiveData()
-    val lat: LiveData<Double>
-        get() = _lat
-
-    private val _lng: MutableLiveData<Double> = MutableLiveData()
-    val lng: LiveData<Double>
-        get() = _lng
-
     private val _currentAddressString: MutableLiveData<String> = MutableLiveData()
     val currentAddressString: LiveData<String>
         get() = _currentAddressString
 
-
     init {
-        _lat.value = 52.2225774
-        _lng.value = 104.2997634
         _currentAddressString.value = "Test address string"
     }
 

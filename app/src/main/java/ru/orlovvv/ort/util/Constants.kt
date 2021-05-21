@@ -5,7 +5,7 @@ class Constants {
         const val BASE_URL = "https://protected-beach-00413.herokuapp.com/"
 
         //GPS CONST
-        const val INTERVAL: Long = 600
+        const val INTERVAL: Long = 60000
         const val FASTEST_INTERVAL = INTERVAL / 4
     }
 }
