@@ -3,6 +3,10 @@ package ru.orlovvv.ort.util
 class Constants {
     companion object {
         const val BASE_URL = "https://protected-beach-00413.herokuapp.com/"
+
+        //GPS CONST
+        const val INTERVAL: Long = 60000
+        const val FASTEST_INTERVAL = INTERVAL / 4
     }
 }
 
