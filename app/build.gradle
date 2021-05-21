@@ -86,4 +86,7 @@ dependencies {
 
     // Moshi
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+
+    // GPS
+    implementation "com.google.android.gms:play-services-location:$gps_version"
 }
