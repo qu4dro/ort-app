@@ -45,6 +45,8 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
         }
 
+        ortViewModel.getNearbyLocationsFromServer()
+
         return binding.root
     }
 

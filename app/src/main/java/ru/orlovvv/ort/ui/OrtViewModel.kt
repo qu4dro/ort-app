@@ -18,14 +18,9 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
 
     var searchQuery = MutableLiveData("")
 
-//    private var _savedLocations = ortRepository.getSavedLocations()
-//    val savedLocations
-//        get() = _savedLocations
-
     private var _savedLocations = Transformations.switchMap(searchQuery) {
         ortRepository.getSavedLocations(it.trim())
     }
-
     val savedLocations
         get() = _savedLocations
 
@@ -55,7 +50,6 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
         _lat.value = 52.2225774
         _lng.value = 104.2997634
         _currentAddressString.value = "Test address string"
-        getNearbyLocationsFromServer()
     }
 
     fun getNearbyLocationsFromServer() = viewModelScope.launch {
