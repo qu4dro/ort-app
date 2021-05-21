@@ -42,6 +42,8 @@
         android:label="LoadingFragment" >
         <action
             android:id="@+id/action_loadingFragment_to_nearbyLocationsFragment"
-            app:destination="@id/nearbyLocationsFragment" />
+            app:destination="@id/nearbyLocationsFragment"
+            app:popUpTo="@id/loadingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
