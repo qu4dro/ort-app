@@ -1,10 +1,12 @@
 package ru.orlovvv.ort.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,12 +14,14 @@ import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.databinding.FragmentNearbyLocationsBinding
 import ru.orlovvv.ort.databinding.FragmentSavedLocationsBinding
+import ru.orlovvv.ort.ui.CoordinatesViewModel
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
 class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
     private lateinit var ortViewModel: OrtViewModel
+    private lateinit var coordinatesViewModel: CoordinatesViewModel
     private lateinit var binding: FragmentNearbyLocationsBinding
     private lateinit var locationAdapter: LocationAdapter
 
@@ -29,6 +33,7 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
         binding = FragmentNearbyLocationsBinding.inflate(inflater)
         ortViewModel = (activity as OrtActivity).ortViewModel
+        coordinatesViewModel = (activity as OrtActivity).coordinatesViewModel
         locationAdapter = LocationAdapter()
 
         binding.apply {
@@ -45,7 +50,7 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
         }
 
-        ortViewModel.getNearbyLocationsFromServer()
+//        ortViewModel.getNearbyLocationsFromServer(coordinatesViewModel.coordinates.value!!.lat, coordinatesViewModel.coordinates.value!!.lng)
 
         return binding.root
     }
@@ -65,6 +70,16 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
                 bundle
             )
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+//        Log.d("123", "onActivityCreated: ${coordinatesViewModel.coordinates.value!!.lng}")
+//        ortViewModel.getNearbyLocationsFromServer(coordinatesViewModel.coordinates.value!!.lng, coordinatesViewModel.coordinates.value!!.lat)
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
 }

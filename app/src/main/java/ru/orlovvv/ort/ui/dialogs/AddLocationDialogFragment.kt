@@ -75,7 +75,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
             ) {
                 createLocation()
                 bottomDialog.dismiss()
-                ortViewModel.getNearbyLocationsFromServer()
+//                ortViewModel.getNearbyLocationsFromServer()
             }
 
             Handler(Looper.getMainLooper()).postDelayed({

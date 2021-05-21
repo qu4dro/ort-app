@@ -52,10 +52,10 @@ class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
         _currentAddressString.value = "Test address string"
     }
 
-    fun getNearbyLocationsFromServer() = viewModelScope.launch {
+    fun getNearbyLocationsFromServer(lng: String, lat: String) = viewModelScope.launch {
         try {
             _nearbyLocations.value = Resource.Loading()
-            val response = ortRepository.getNearbyLocations(104.299971, 52.222977, 10000)
+            val response = ortRepository.getNearbyLocations(lng.toDouble(), lat.toDouble(), 10000)
             _nearbyLocations.value = handleNearbyLocationsResponse(response)
         } catch (e: Exception) {
 //            _nearbyLocations.value = Resource.Success((ArrayList()))

@@ -50,7 +50,7 @@ class OrtActivity : AppCompatActivity() {
         val ortViewModelProviderFactory = OrtViewModelProviderFactory(ortRepository)
         _ortViewModel =
             ViewModelProvider(this, ortViewModelProviderFactory).get(OrtViewModel::class.java)
-
+        _coordinatesViewModel = ViewModelProvider(this).get(CoordinatesViewModel::class.java)
         setContentView(_binding.root)
 
         _binding.babMenu.setNavigationOnClickListener {
@@ -76,12 +76,12 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun requestLocationUpdates() {
-        _coordinatesViewModel = ViewModelProvider(this).get(CoordinatesViewModel::class.java)
+
+
         _coordinatesViewModel.coordinates.observe(this, Observer {
-            it.lat
-            it.lng
-            Log.d("123", "requestLocationUpdates: ${it.lat} ${it.lng}")
+
         })
+
 
     }
 
