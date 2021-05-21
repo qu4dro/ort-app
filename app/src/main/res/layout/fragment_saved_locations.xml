@@ -10,18 +10,16 @@
 
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_saved_locations"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:paddingTop="2dp"
-        android:paddingBottom="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:locationsPreviewList="@{viewModel.savedLocations}"
-        app:paddingBottomSystemWindowInsets="@{true}"
-        app:paddingTopSystemWindowInsets="@{true}" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_saved_locations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingTop="2dp"
+            android:paddingBottom="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:locationsPreviewList="@{viewModel.savedLocations}" />
 
 </layout>
