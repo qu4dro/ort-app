@@ -1,10 +1,14 @@
 package ru.orlovvv.ort.ui.fragments
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -24,6 +28,8 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
     private lateinit var coordinatesViewModel: CoordinatesViewModel
     private lateinit var binding: FragmentNearbyLocationsBinding
     private lateinit var locationAdapter: LocationAdapter
+
+    private val LOCATION_PERMISSION_REQUEST_CODE = 2000
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,9 +56,52 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
         }
 
-//        ortViewModel.getNearbyLocationsFromServer(coordinatesViewModel.coordinates.value!!.lat, coordinatesViewModel.coordinates.value!!.lng)
-
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        requestLocationUpdates()
+    }
+
+    private fun prepRequestLocationUpdates() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            requestLocationUpdates()
+        } else {
+            val permissionRequest = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+            requestPermissions(permissionRequest, LOCATION_PERMISSION_REQUEST_CODE)
+        }
+    }
+
+    private fun requestLocationUpdates() {
+        coordinatesViewModel.coordinates.observe(viewLifecycleOwner, Observer {
+
+        })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            LOCATION_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    requestLocationUpdates()
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Check location permission",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,15 +120,4 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
             )
         }
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        Log.d("123", "onActivityCreated: ${coordinatesViewModel.coordinates.value!!.lng}")
-//        ortViewModel.getNearbyLocationsFromServer(coordinatesViewModel.coordinates.value!!.lng, coordinatesViewModel.coordinates.value!!.lat)
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
 }

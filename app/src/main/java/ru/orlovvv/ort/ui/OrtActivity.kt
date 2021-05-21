@@ -26,8 +26,6 @@ import androidx.lifecycle.Observer
 
 class OrtActivity : AppCompatActivity() {
 
-    private val LOCATION_PERMISSION_REQUEST_CODE = 2000
-
     private lateinit var _binding: ActivityOrtBinding
     val binding: ActivityOrtBinding
         get() = _binding
@@ -58,50 +56,7 @@ class OrtActivity : AppCompatActivity() {
             dialog.show(supportFragmentManager, "navigationDrawerMenu")
         }
 
-        prepRequestLocationUpdates()
         setNavigationListeners()
-    }
-
-    private fun prepRequestLocationUpdates() {
-        if (ContextCompat.checkSelfPermission(
-                applicationContext!!,
-                permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            requestLocationUpdates()
-        } else {
-            val permissionRequest = arrayOf(permission.ACCESS_FINE_LOCATION)
-            requestPermissions(permissionRequest, LOCATION_PERMISSION_REQUEST_CODE)
-        }
-    }
-
-    private fun requestLocationUpdates() {
-
-        _coordinatesViewModel.coordinates.observe(this, Observer {
-
-        })
-
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            LOCATION_PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    requestLocationUpdates()
-                } else {
-                    Toast.makeText(
-                        applicationContext,
-                        "Check location permission",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-        }
     }
 
     @MenuRes

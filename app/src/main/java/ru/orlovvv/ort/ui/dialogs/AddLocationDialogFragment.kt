@@ -78,6 +78,10 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
             ) {
                 createLocation()
                 bottomDialog.dismiss()
+                ortViewModel.getNearbyLocationsFromServer(
+                    coordinatesViewModel.coordinates.value!!.lng,
+                    coordinatesViewModel.coordinates.value!!.lat
+                )
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -85,12 +89,6 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 binding.tilLocationTags.error = null
             }, 2000)
 
-
-            bottomDialog.dismiss()
-            ortViewModel.getNearbyLocationsFromServer(
-                coordinatesViewModel.coordinates.value!!.lng,
-                coordinatesViewModel.coordinates.value!!.lat
-            )
         }
 
     }
