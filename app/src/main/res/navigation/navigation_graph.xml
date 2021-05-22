@@ -2,12 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/nearbyLocationsFragment">
+    app:startDestination="@id/loadingFragment">
+
+    <action
+        android:id="@+id/action_global_nearbyLocationsFragment"
+        app:destination="@+id/nearbyLocationsFragment"
+        app:launchSingleTop="true" />
 
     <fragment
         android:id="@+id/mapsFragment"
         android:name="ru.orlovvv.ort.ui.fragments.MapsFragment"
-        android:label="MapsFragment" >
+        android:label="MapsFragment">
         <action
             android:id="@+id/action_mapsFragment_to_locationInfoFragment"
             app:destination="@id/locationInfoFragment" />
@@ -15,7 +20,7 @@
     <fragment
         android:id="@+id/nearbyLocationsFragment"
         android:name="ru.orlovvv.ort.ui.fragments.NearbyLocationsFragment"
-        android:label="NearbyLocationsFragment" >
+        android:label="NearbyLocationsFragment">
         <action
             android:id="@+id/action_nearbyLocationsFragment_to_locationInfoFragment"
             app:destination="@id/locationInfoFragment" />
@@ -23,7 +28,7 @@
     <fragment
         android:id="@+id/savedLocationsFragment"
         android:name="ru.orlovvv.ort.ui.fragments.SavedLocationsFragment"
-        android:label="SavedLocationsFragment" >
+        android:label="SavedLocationsFragment">
         <action
             android:id="@+id/action_savedLocationsFragment_to_locationInfoFragment"
             app:destination="@id/locationInfoFragment" />
@@ -31,9 +36,19 @@
     <fragment
         android:id="@+id/locationInfoFragment"
         android:name="ru.orlovvv.ort.ui.fragments.LocationInfoFragment"
-        android:label="LocationInfoFragment" >
+        android:label="LocationInfoFragment">
         <argument
             android:name="location"
             app:argType="ru.orlovvv.ort.models.LocationPreview" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="ru.orlovvv.ort.ui.fragments.LoadingFragment"
+        android:label="LoadingFragment" >
+        <action
+            android:id="@+id/action_loadingFragment_to_nearbyLocationsFragment"
+            app:destination="@id/nearbyLocationsFragment"
+            app:popUpTo="@id/loadingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

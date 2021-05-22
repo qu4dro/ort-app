@@ -1,6 +1,8 @@
 package ru.orlovvv.ort.ui.dialogs
 
 import android.app.Dialog
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,23 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.FrameLayout
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
+import ru.orlovvv.ort.models.CoordinatesModel
 import ru.orlovvv.ort.models.LocationPost
-import ru.orlovvv.ort.ui.OrtActivity
+import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtViewModel
+import java.util.*
+
 
 @AndroidEntryPoint
 class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
     private val ortViewModel: OrtViewModel by activityViewModels()
+    private val locationViewModel: LocationViewModel by activityViewModels()
     private lateinit var binding: FragmentAddLocationDialogBinding
     private lateinit var bottomDialog: Dialog
 
@@ -37,9 +39,8 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
         binding = FragmentAddLocationDialogBinding.inflate(inflater, container, false)
 
         binding.apply {
-            etLocationAddress.setText(ortViewModel.currentAddressString.value)
             ivGetAddress.setOnClickListener {
-                binding.etLocationAddress.setText(ortViewModel.currentAddressString.value)
+                binding.etLocationAddress.setText(getAddressString(locationViewModel.locationLiveData.value!!))
             }
         }
 
@@ -71,7 +72,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
             ) {
                 createLocation()
                 bottomDialog.dismiss()
-                ortViewModel.getNearbyLocationsFromServer()
+                ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -89,9 +90,29 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 binding.etLocationName.text.toString(),
                 binding.etLocationAddress.text.toString(),
                 binding.etLocationTags.text.toString(),
-                ortViewModel.lng.value!!,
-                ortViewModel.lat.value!!
+                locationViewModel.locationLiveData.value!!.lng,
+                locationViewModel.locationLiveData.value!!.lat,
             )
         )
+    }
+
+    private fun getAddressString(coordinates: CoordinatesModel): String {
+        val geocoder: Geocoder
+        val addresses: List<Address>
+        geocoder = Geocoder(requireContext(), Locale.getDefault())
+
+        addresses = geocoder.getFromLocation(
+            coordinates.lat,
+            coordinates.lng,
+            1
+        )
+        val address: String =
+            addresses[0].getAddressLine(0)
+        val city: String = addresses[0].getLocality()
+        val state: String = addresses[0].getAdminArea()
+        val country: String = addresses[0].getCountryName()
+        val postalCode: String = addresses[0].getPostalCode()
+        val knownName: String = addresses[0].getFeatureName()
+        return address
     }
 }
