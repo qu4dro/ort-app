@@ -21,6 +21,7 @@ import ru.orlovvv.ort.ui.dialogs.BottomNavigationDrawerFragment
 class OrtActivity : AppCompatActivity() {
 
     val ortViewModel: OrtViewModel by viewModels()
+    val locationViewModel: LocationViewModel by viewModels()
 
     private lateinit var _binding: ActivityOrtBinding
     val binding: ActivityOrtBinding
@@ -132,5 +133,4 @@ class OrtActivity : AppCompatActivity() {
             }
 
     }
-
 }

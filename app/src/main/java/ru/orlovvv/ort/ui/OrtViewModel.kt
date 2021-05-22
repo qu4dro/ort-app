@@ -4,14 +4,12 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import ru.orlovvv.ort.models.LocationInfo
-import ru.orlovvv.ort.models.LocationPost
-import ru.orlovvv.ort.models.LocationPreview
-import ru.orlovvv.ort.models.ReviewPost
+import ru.orlovvv.ort.models.*
 import ru.orlovvv.ort.repository.OrtRepository
 import ru.orlovvv.ort.util.Resource
 import java.lang.Exception
 import javax.inject.Inject
+import kotlin.reflect.jvm.internal.impl.load.java.components.JavaPropertyInitializerEvaluator
 
 @HiltViewModel
 class OrtViewModel @Inject constructor(private val ortRepository: OrtRepository) : ViewModel() {
@@ -52,10 +50,10 @@ class OrtViewModel @Inject constructor(private val ortRepository: OrtRepository)
         _currentAddressString.value = "Test address string"
     }
 
-    fun getNearbyLocationsFromServer() = viewModelScope.launch {
+    fun getNearbyLocationsFromServer(coordinates : CoordinatesModel) = viewModelScope.launch {
         try {
             _nearbyLocations.value = Resource.Loading()
-            val response = ortRepository.getNearbyLocations(104.299971, 52.222977, 10000)
+            val response = ortRepository.getNearbyLocations(coordinates.lng, coordinates.lat, 10000)
             _nearbyLocations.value = handleNearbyLocationsResponse(response)
         } catch (e: Exception) {
 //            _nearbyLocations.value = Resource.Success((ArrayList()))

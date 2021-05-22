@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,18 +16,18 @@ import pub.devrel.easypermissions.EasyPermissions
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.databinding.FragmentNearbyLocationsBinding
-import ru.orlovvv.ort.databinding.FragmentSavedLocationsBinding
-import ru.orlovvv.ort.ui.OrtActivity
+import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtViewModel
 import ru.orlovvv.ort.util.Constants
 import ru.orlovvv.ort.util.LocationUtility
+import timber.log.Timber
 
 @AndroidEntryPoint
 class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations),
     EasyPermissions.PermissionCallbacks {
 
     private val ortViewModel: OrtViewModel by activityViewModels()
-
+    private val locationViewModel: LocationViewModel by activityViewModels()
 
     private lateinit var binding: FragmentNearbyLocationsBinding
     private lateinit var locationAdapter: LocationAdapter
@@ -53,10 +52,10 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations),
                 )
                 adapter = locationAdapter
             }
-
         }
 
-        ortViewModel.getNearbyLocationsFromServer()
+        requestPermissions()
+
 
         return binding.root
     }
@@ -64,10 +63,7 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requestPermissions()
-
         locationAdapter.setOnItemClickListener {
-
             ortViewModel.getLocationInfo(it._id)
 
             val bundle = Bundle().apply {
@@ -80,9 +76,18 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations),
         }
     }
 
+    private fun requestLocationUpdates() {
+        locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
+            Timber.d("${it.lat} ${it.lng}")
+        })
+//        ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
+
+    }
+
+
     private fun requestPermissions() {
         if (LocationUtility.hasLocationPermissions(requireContext())) {
-            return
+            requestLocationUpdates()
         } else {
             EasyPermissions.requestPermissions(
                 this,
@@ -92,9 +97,12 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations),
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
         }
+
     }
 
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {}
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        requestLocationUpdates()
+    }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
