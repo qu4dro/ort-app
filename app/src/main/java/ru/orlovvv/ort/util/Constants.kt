@@ -3,6 +3,7 @@ package ru.orlovvv.ort.util
 class Constants {
     companion object {
         const val BASE_URL = "https://protected-beach-00413.herokuapp.com/"
+        const val REQUEST_CODE_LOCATION_PERMISSION = 0
     }
 }
 
