@@ -1,7 +1,7 @@
 package ru.orlovvv.ort.ui
 
-import android.util.Log
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import ru.orlovvv.ort.models.LocationInfo
@@ -11,10 +11,10 @@ import ru.orlovvv.ort.models.ReviewPost
 import ru.orlovvv.ort.repository.OrtRepository
 import ru.orlovvv.ort.util.Resource
 import java.lang.Exception
+import javax.inject.Inject
 
-class OrtViewModel(private val ortRepository: OrtRepository) : ViewModel() {
-
-    private var locationsResponse: List<LocationPreview>? = null
+@HiltViewModel
+class OrtViewModel @Inject constructor(private val ortRepository: OrtRepository) : ViewModel() {
 
     var searchQuery = MutableLiveData("")
 

@@ -3,49 +3,37 @@ package ru.orlovvv.ort.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.annotation.MenuRes
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_ort.*
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.ActivityOrtBinding
-import ru.orlovvv.ort.db.OrtDatabase
-import ru.orlovvv.ort.repository.OrtRepository
 import ru.orlovvv.ort.ui.dialogs.AddLocationDialogFragment
 import ru.orlovvv.ort.ui.dialogs.AddReviewDialogFragment
 import ru.orlovvv.ort.ui.dialogs.BottomNavigationDrawerFragment
 
+@AndroidEntryPoint
 class OrtActivity : AppCompatActivity() {
+
+    val ortViewModel: OrtViewModel by viewModels()
 
     private lateinit var _binding: ActivityOrtBinding
     val binding: ActivityOrtBinding
         get() = _binding
-    private lateinit var _ortViewModel: OrtViewModel
-    val ortViewModel: OrtViewModel
-        get() = _ortViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityOrtBinding.inflate(layoutInflater)
 
-        val ortDatabase = OrtDatabase(this)
-        val ortRepository = OrtRepository(ortDatabase)
-        val ortViewModelProviderFactory = OrtViewModelProviderFactory(ortRepository)
-        _ortViewModel =
-            ViewModelProvider(this, ortViewModelProviderFactory).get(OrtViewModel::class.java)
-
         setContentView(_binding.root)
 
-        _binding.babMenu.setNavigationOnClickListener {
-            val dialog = BottomNavigationDrawerFragment()
-            dialog.show(supportFragmentManager, "navigationDrawerMenu")
-        }
-
-        setNavigationListeners()
+        setBottomAppBarListeners()
     }
 
     @MenuRes
@@ -59,56 +47,58 @@ class OrtActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBottomAppBarForNearby(@MenuRes menuRes: Int) {
-        _binding.run {
-            fab.setImageState(intArrayOf(-android.R.attr.state_activated), true)
-            fab.setImageResource((R.drawable.ic_add_24))
+    private fun showMenu(isFabVisible: Boolean) {
+        _binding.apply {
             babMenu.visibility = View.VISIBLE
-            babMenu.replaceMenu(menuRes)
             babMenu.performShow()
-            fab.show()
-            babMenu.setFabAlignmentModeAndReplaceMenu(
-                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER,
-                menuRes
-            )
-
-            _binding.fab.setOnClickListener {
-                val dialog = AddLocationDialogFragment()
-                dialog.show(supportFragmentManager, "addLocationFragmentDialog")
+            if (isFabVisible) {
+                fab.show()
+            } else {
+                fab.hide()
             }
         }
+
     }
 
     private fun setBottomAppBarForSaved(@MenuRes menuRes: Int) {
-        _binding.run {
-            fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
-            babMenu.visibility = View.VISIBLE
+        _binding.apply {
             babMenu.replaceMenu(menuRes)
-            babMenu.performShow()
-            fab.hide()
+            showMenu(false)
         }
     }
 
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
-        _binding.run {
-            fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
+        _binding.apply {
             babMenu.replaceMenu(menuRes)
-            babMenu.visibility = View.VISIBLE
-            babMenu.performShow()
-            fab.show()
+            showMenu(true)
+        }
+    }
+
+    private fun setBottomAppBarForNearby(@MenuRes menuRes: Int) {
+        _binding.apply {
+            fab.apply {
+                setImageResource((R.drawable.ic_add_24))
+                setOnClickListener {
+                    val dialog = AddLocationDialogFragment()
+                    dialog.show(supportFragmentManager, "addLocationFragmentDialog")
+                }
+            }
+            babMenu.setFabAlignmentModeAndReplaceMenu(
+                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER,
+                menuRes
+            )
+            showMenu(true)
         }
     }
 
     private fun setBottomAppBarForLocationInfo(@MenuRes menuRes: Int) {
-        _binding.run {
-            fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
+        _binding.apply {
             fab.setImageResource((R.drawable.ic_write_review_24))
-            babMenu.visibility = View.VISIBLE
-            babMenu.replaceMenu(menuRes)
-            babMenu.performShow()
-            fab.show()
-            _binding.babMenu.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_END
-
+            babMenu.setFabAlignmentModeAndReplaceMenu(
+                BottomAppBar.FAB_ALIGNMENT_MODE_END,
+                menuRes
+            )
+            showMenu(true)
             _binding.fab.setOnClickListener {
                 val dialog = AddReviewDialogFragment()
                 dialog.show(supportFragmentManager, "addReviewFragmentDialog")
@@ -116,7 +106,12 @@ class OrtActivity : AppCompatActivity() {
         }
     }
 
-    private fun setNavigationListeners() {
+    private fun setBottomAppBarListeners() {
+
+        _binding.babMenu.setNavigationOnClickListener {
+            val dialog = BottomNavigationDrawerFragment()
+            dialog.show(supportFragmentManager, "navigationDrawerMenu")
+        }
 
         nav_host_fragment.findNavController()
             .addOnDestinationChangedListener { contoller, destination, arguments ->
@@ -130,14 +125,12 @@ class OrtActivity : AppCompatActivity() {
                     R.id.mapsFragment -> {
                         setBottomAppBarForMaps(getBottomAppBarMenuForDestination(destination))
                     }
-
                     R.id.locationInfoFragment -> {
                         setBottomAppBarForLocationInfo(getBottomAppBarMenuForDestination(destination))
                     }
                 }
-
             }
-    }
 
+    }
 
 }

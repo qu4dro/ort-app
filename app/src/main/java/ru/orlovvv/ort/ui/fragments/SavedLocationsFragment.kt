@@ -7,18 +7,23 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.databinding.FragmentSavedLocationsBinding
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
+@AndroidEntryPoint
 class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
 
-    private lateinit var ortViewModel: OrtViewModel
     private lateinit var binding: FragmentSavedLocationsBinding
     private lateinit var locationAdapter: LocationAdapter
+
+    private val ortViewModel : OrtViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +32,6 @@ class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
     ): View? {
 
         binding = FragmentSavedLocationsBinding.inflate(inflater)
-        ortViewModel = (activity as OrtActivity).ortViewModel
         locationAdapter = LocationAdapter()
 
         binding.apply {
@@ -59,7 +63,6 @@ class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 ortViewModel.searchQuery.value = newText
-//                ortViewModel.getSortOrUpdateStickers()
                 return true
             }
 

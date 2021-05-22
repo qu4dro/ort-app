@@ -24,6 +24,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyleSemiBold"
                 android:id="@+id/tv_review_date"
                 app:layout_constraintStart_toEndOf="@id/tv_review_author"
                 app:layout_constraintTop_toTopOf="@id/chip_review_rating"
@@ -54,6 +55,7 @@
                 tools:text="3" />
 
             <com.google.android.material.textview.MaterialTextView
+
                 android:id="@+id/tv_review_text"
                 style="@style/TextStyleRegular"
                 android:layout_width="match_parent"

@@ -2,13 +2,15 @@ package ru.orlovvv.ort.repository
 
 import androidx.lifecycle.LiveData
 import ru.orlovvv.ort.api.RetrofitInstance
+import ru.orlovvv.ort.db.OrtDAO
 import ru.orlovvv.ort.db.OrtDatabase
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.models.Review
 import ru.orlovvv.ort.models.ReviewPost
+import javax.inject.Inject
 
-class OrtRepository(private val ortDB: OrtDatabase) {
+class OrtRepository @Inject constructor(private val ortDAO: OrtDAO) {
 
     // network
     suspend fun getNearbyLocations(lng: Double, lat: Double, maxDistance: Int) =
@@ -24,12 +26,13 @@ class OrtRepository(private val ortDB: OrtDatabase) {
 
     // database
     suspend fun insertLocation(locationPreview: LocationPreview) =
-        ortDB.getOrtDao().insertLocation(locationPreview)
+        ortDAO.insertLocation(locationPreview)
 
     suspend fun deleteLocation(locationPreview: LocationPreview) =
-        ortDB.getOrtDao().deleteLocation(locationPreview)
+        ortDAO.deleteLocation(locationPreview)
 
-    fun getSavedLocations(searchQuery: String): LiveData<List<LocationPreview>> = ortDB.getOrtDao().getAllLocations(searchQuery)
+    fun getSavedLocations(searchQuery: String): LiveData<List<LocationPreview>> =
+        ortDAO.getAllLocations(searchQuery)
 
 
 }

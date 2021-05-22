@@ -9,18 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.FrameLayout
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
+@AndroidEntryPoint
 class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
-    private lateinit var ortViewModel: OrtViewModel
+    private val ortViewModel: OrtViewModel by activityViewModels()
     private lateinit var binding: FragmentAddLocationDialogBinding
     private lateinit var bottomDialog: Dialog
 
@@ -31,17 +35,12 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
     ): View? {
 
         binding = FragmentAddLocationDialogBinding.inflate(inflater, container, false)
-        ortViewModel = (activity as OrtActivity).ortViewModel
 
         binding.apply {
-            lifecycleOwner = this@AddLocationDialogFragment
-            viewModel = ortViewModel
-        }
-
-        binding.etLocationAddress.setText(ortViewModel.currentAddressString.value)
-
-        binding.ivGetAddress.setOnClickListener {
-            binding.etLocationAddress.setText(ortViewModel.currentAddressString.value)
+            etLocationAddress.setText(ortViewModel.currentAddressString.value)
+            ivGetAddress.setOnClickListener {
+                binding.etLocationAddress.setText(ortViewModel.currentAddressString.value)
+            }
         }
 
         return binding.root
@@ -50,9 +49,6 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         bottomDialog = super.onCreateDialog(savedInstanceState)
         bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-
-        setOnShowDialogListener()
-
         return bottomDialog
     }
 
@@ -97,30 +93,5 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 ortViewModel.lat.value!!
             )
         )
-    }
-
-    private fun setOnShowDialogListener() {
-        bottomDialog.setOnShowListener {
-            val bottomSheet =
-                (it as BottomSheetDialog).findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
-            val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet!!)
-            bottomSheetBehavior.addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-//                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    if (slideOffset > 0.5) {
-                        binding.ivCloseDialog.visibility = View.VISIBLE
-                    } else {
-                        binding.ivCloseDialog.visibility = View.GONE
-                    }
-                }
-            })
-        }
     }
 }
