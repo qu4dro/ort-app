@@ -5,10 +5,6 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="ru.orlovvv.ort.ui.OrtViewModel" />
-
     </data>
 
     <androidx.core.widget.NestedScrollView

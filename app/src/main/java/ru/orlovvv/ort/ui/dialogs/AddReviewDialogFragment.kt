@@ -11,9 +11,12 @@ import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.FrameLayout
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
 import ru.orlovvv.ort.databinding.FragmentAddReviewDialogBinding
@@ -22,9 +25,11 @@ import ru.orlovvv.ort.models.ReviewPost
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
+@AndroidEntryPoint
 class AddReviewDialogFragment : BottomSheetDialogFragment() {
 
-    private lateinit var ortViewModel: OrtViewModel
+    private val ortViewModel : OrtViewModel by activityViewModels()
+
     private lateinit var binding: FragmentAddReviewDialogBinding
     private lateinit var bottomDialog: Dialog
 
@@ -35,7 +40,6 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
     ): View? {
 
         binding = FragmentAddReviewDialogBinding.inflate(inflater, container, false)
-        ortViewModel = (activity as OrtActivity).ortViewModel
 
         val items = listOf("5", "4", "3", "2", "1")
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
@@ -47,8 +51,6 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         bottomDialog = super.onCreateDialog(savedInstanceState)
         bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-
-        setOnShowDialogListener()
 
         return bottomDialog
     }
@@ -95,28 +97,4 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
 
     }
 
-    private fun setOnShowDialogListener() {
-        bottomDialog.setOnShowListener {
-            val bottomSheet =
-                (it as BottomSheetDialog).findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
-            val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet!!)
-            bottomSheetBehavior.addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-//                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    if (slideOffset > 0.5) {
-                        binding.ivCloseDialog.visibility = View.VISIBLE
-                    } else {
-                        binding.ivCloseDialog.visibility = View.GONE
-                    }
-                }
-            })
-        }
-    }
 }

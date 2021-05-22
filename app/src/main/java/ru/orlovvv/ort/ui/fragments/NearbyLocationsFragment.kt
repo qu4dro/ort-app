@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.databinding.FragmentNearbyLocationsBinding
@@ -15,9 +18,12 @@ import ru.orlovvv.ort.databinding.FragmentSavedLocationsBinding
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
+@AndroidEntryPoint
 class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
-    private lateinit var ortViewModel: OrtViewModel
+    private val ortViewModel : OrtViewModel by activityViewModels()
+
+
     private lateinit var binding: FragmentNearbyLocationsBinding
     private lateinit var locationAdapter: LocationAdapter
 
@@ -28,7 +34,6 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
     ): View? {
 
         binding = FragmentNearbyLocationsBinding.inflate(inflater)
-        ortViewModel = (activity as OrtActivity).ortViewModel
         locationAdapter = LocationAdapter()
 
         binding.apply {

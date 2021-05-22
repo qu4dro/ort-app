@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.FrameLayout
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -20,7 +21,7 @@ import ru.orlovvv.ort.ui.OrtViewModel
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
-    private lateinit var ortViewModel: OrtViewModel
+    private val ortViewModel: OrtViewModel by activityViewModels()
     private lateinit var binding: FragmentBottomNavigationDrawerBinding
     private lateinit var bottomDialog: Dialog
 
@@ -31,11 +32,6 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     ): View? {
 
         binding = FragmentBottomNavigationDrawerBinding.inflate(inflater, container, false)
-        ortViewModel = (activity as OrtActivity).ortViewModel
-
-        binding.apply {
-            lifecycleOwner = this@BottomNavigationDrawerFragment
-        }
 
         binding.navMenu.setupWithNavController(nav_host_fragment.findNavController())
 
@@ -45,35 +41,7 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         bottomDialog = super.onCreateDialog(savedInstanceState)
         bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-
-        setOnShowDialogListener()
-
         return bottomDialog
-    }
-
-    private fun setOnShowDialogListener() {
-        bottomDialog.setOnShowListener {
-            val bottomSheet =
-                (it as BottomSheetDialog).findViewById<View>(R.id.design_bottom_sheet) as FrameLayout?
-            val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet!!)
-            bottomSheetBehavior.addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    when (newState) {
-                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    if (slideOffset > 0.5) {
-
-                    } else {
-
-                    }
-                }
-            })
-        }
     }
 
 }
