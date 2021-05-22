@@ -102,4 +102,7 @@ dependencies {
     // Google Maps Location Services
     implementation "com.google.android.gms:play-services-location:$location_version"
     implementation "com.google.android.gms:play-services-maps:$location_version"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
 }

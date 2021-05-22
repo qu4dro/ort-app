@@ -15,6 +15,7 @@ buildscript {
         dagger_hilt_version = "2.35.1"
         easy_permissions_version = "3.0.0"
         location_version = "17.0.0"
+        timber_version = "4.7.1"
     }
     repositories {
         google()
