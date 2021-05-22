@@ -12,6 +12,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import ru.orlovvv.ort.models.CoordinatesModel
 import ru.orlovvv.ort.util.Constants
+import timber.log.Timber
 
 class LocationLiveData(context: Context) : LiveData<CoordinatesModel>() {
 
@@ -20,9 +21,11 @@ class LocationLiveData(context: Context) : LiveData<CoordinatesModel>() {
     @SuppressLint("MissingPermission")
     override fun onActive() {
         super.onActive()
+        Timber.d("${value} + ONACTIVE BEFORE")
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location ->
             location.also {
                 setLocationData(it)
+                Timber.d("${value} + ONACTIVE AFTER")
             }
         }
         startLocationUpdates()

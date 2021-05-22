@@ -23,8 +23,7 @@ import ru.orlovvv.ort.util.LocationUtility
 import timber.log.Timber
 
 @AndroidEntryPoint
-class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations),
-    EasyPermissions.PermissionCallbacks {
+class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
     private val ortViewModel: OrtViewModel by activityViewModels()
     private val locationViewModel: LocationViewModel by activityViewModels()
@@ -54,7 +53,11 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations),
             }
         }
 
-        requestPermissions()
+        locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
+            Timber.d("${it.lat} ${it.lng}")
+        })
+
+//        requestPermissions()
 
 
         return binding.root
@@ -74,50 +77,5 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations),
                 bundle
             )
         }
-    }
-
-    private fun requestLocationUpdates() {
-        locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
-            Timber.d("${it.lat} ${it.lng}")
-        })
-//        ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
-
-    }
-
-
-    private fun requestPermissions() {
-        if (LocationUtility.hasLocationPermissions(requireContext())) {
-            requestLocationUpdates()
-        } else {
-            EasyPermissions.requestPermissions(
-                this,
-                "You need to accept location permissions",
-                Constants.REQUEST_CODE_LOCATION_PERMISSION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        }
-
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        requestLocationUpdates()
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
-        } else {
-            requestPermissions()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
 }

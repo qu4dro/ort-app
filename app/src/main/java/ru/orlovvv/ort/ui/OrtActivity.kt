@@ -58,7 +58,13 @@ class OrtActivity : AppCompatActivity() {
                 fab.hide()
             }
         }
+    }
 
+    private fun hideMenu() {
+        _binding.apply {
+            babMenu.visibility = View.GONE
+            fab.visibility = View.GONE
+        }
     }
 
     private fun setBottomAppBarForSaved(@MenuRes menuRes: Int) {
@@ -66,6 +72,10 @@ class OrtActivity : AppCompatActivity() {
             babMenu.replaceMenu(menuRes)
             showMenu(false)
         }
+    }
+
+    private fun setBottomAppBarForLoading() {
+        hideMenu()
     }
 
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
@@ -128,6 +138,9 @@ class OrtActivity : AppCompatActivity() {
                     }
                     R.id.locationInfoFragment -> {
                         setBottomAppBarForLocationInfo(getBottomAppBarMenuForDestination(destination))
+                    }
+                    R.id.loadingFragment -> {
+                        setBottomAppBarForLoading()
                     }
                 }
             }

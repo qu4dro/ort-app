@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
 import ru.orlovvv.ort.models.LocationPost
+import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
@@ -25,6 +26,7 @@ import ru.orlovvv.ort.ui.OrtViewModel
 class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
     private val ortViewModel: OrtViewModel by activityViewModels()
+    private val locationViewModel: LocationViewModel by activityViewModels()
     private lateinit var binding: FragmentAddLocationDialogBinding
     private lateinit var bottomDialog: Dialog
 
@@ -71,7 +73,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
             ) {
                 createLocation()
                 bottomDialog.dismiss()
-//                ortViewModel.getNearbyLocationsFromServer()
+                ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -89,8 +91,8 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 binding.etLocationName.text.toString(),
                 binding.etLocationAddress.text.toString(),
                 binding.etLocationTags.text.toString(),
-                ortViewModel.lng.value!!,
-                ortViewModel.lat.value!!
+                locationViewModel.locationLiveData.value!!.lng,
+                locationViewModel.locationLiveData.value!!.lat,
             )
         )
     }

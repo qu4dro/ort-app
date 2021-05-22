@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/nearbyLocationsFragment">
+    app:startDestination="@id/loadingFragment">
 
     <action
         android:id="@+id/action_global_nearbyLocationsFragment"
@@ -40,5 +40,15 @@
         <argument
             android:name="location"
             app:argType="ru.orlovvv.ort.models.LocationPreview" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="ru.orlovvv.ort.ui.fragments.LoadingFragment"
+        android:label="LoadingFragment" >
+        <action
+            android:id="@+id/action_loadingFragment_to_nearbyLocationsFragment"
+            app:destination="@id/nearbyLocationsFragment"
+            app:popUpTo="@id/loadingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
