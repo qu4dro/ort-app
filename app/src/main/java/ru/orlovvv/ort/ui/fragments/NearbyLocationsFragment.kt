@@ -53,13 +53,6 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
             }
         }
 
-        locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
-            Timber.d("${it.lat} ${it.lng}")
-        })
-
-//        requestPermissions()
-
-
         return binding.root
     }
 
@@ -77,5 +70,13 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
                 bundle
             )
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
+            Timber.d("${it.lat} ${it.lng}")
+        })
     }
 }
