@@ -21,9 +21,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentMapsBinding
+import ru.orlovvv.ort.models.LocationInfo
+import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.ui.LocationViewModel
+import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 import timber.log.Timber
+import java.io.Serializable
 
 
 @AndroidEntryPoint
@@ -62,7 +66,17 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             googleMap?.isMyLocationEnabled = true
 
             googleMap?.setOnInfoWindowClickListener {
-                findNavController().navigate(R.id.action_mapsFragment_to_locationInfoFragment)
+                val location = it.tag as LocationPreview
+                ortViewModel.getLocationInfo(location._id)
+
+                val bundle = Bundle().apply {
+                    putSerializable("location", it.tag as Serializable?)
+                }
+
+                findNavController().navigate(
+                    R.id.action_mapsFragment_to_locationInfoFragment,
+                    bundle
+                )
             }
 
             setMapStyle()
@@ -86,7 +100,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
     private fun addNearbyLocationsMarkers() {
         for (location in ortViewModel.nearbyLocations.value?.data!!) {
-            googleMap!!.addMarker(
+            val marker = googleMap!!.addMarker(
                 MarkerOptions().position(
                     LatLng(
                         location.coordinates[1].toDouble(),
@@ -94,7 +108,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
                     )
                 ).snippet(location.name).title(location.name)
             )
-
+            marker.tag = location
         }
     }
 
