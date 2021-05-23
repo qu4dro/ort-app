@@ -3,6 +3,7 @@ package ru.orlovvv.ort.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.MenuRes
 import androidx.navigation.NavDestination
@@ -80,7 +81,13 @@ class OrtActivity : AppCompatActivity() {
 
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
         _binding.apply {
-            babMenu.replaceMenu(menuRes)
+            fab.apply {
+                setImageResource((R.drawable.ic_add_24))
+                setOnClickListener {
+                    Toast.makeText(this@OrtActivity, "Button in progress", Toast.LENGTH_LONG).show()
+                }
+                babMenu.setFabAlignmentModeAndReplaceMenu( BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, menuRes)
+            }
             showMenu(true)
         }
     }
