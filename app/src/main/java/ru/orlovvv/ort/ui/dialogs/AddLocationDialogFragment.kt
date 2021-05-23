@@ -19,6 +19,7 @@ import ru.orlovvv.ort.models.CoordinatesModel
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.util.LocationUtility
 import java.util.*
 
 
@@ -40,7 +41,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
         binding.apply {
             ivGetAddress.setOnClickListener {
-                binding.etLocationAddress.setText(getAddressString(locationViewModel.locationLiveData.value!!))
+                binding.etLocationAddress.setText(LocationUtility.getAddressString(locationViewModel.locationLiveData.value!!, requireContext()))
             }
         }
 
@@ -96,23 +97,4 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
         )
     }
 
-    private fun getAddressString(coordinates: CoordinatesModel): String {
-        val geocoder: Geocoder
-        val addresses: List<Address>
-        geocoder = Geocoder(requireContext(), Locale.getDefault())
-
-        addresses = geocoder.getFromLocation(
-            coordinates.lat,
-            coordinates.lng,
-            1
-        )
-        val address: String =
-            addresses[0].getAddressLine(0)
-        val city: String = addresses[0].getLocality()
-        val state: String = addresses[0].getAdminArea()
-        val country: String = addresses[0].getCountryName()
-        val postalCode: String = addresses[0].getPostalCode()
-        val knownName: String = addresses[0].getFeatureName()
-        return address
-    }
 }
