@@ -10,6 +10,7 @@ data class LocationPreview(
     val _id: String,
     val address: String,
     val name: String,
+    val coordinates: List<String>,
     val range: Double,
     val services: List<String>,
     val stars: Int

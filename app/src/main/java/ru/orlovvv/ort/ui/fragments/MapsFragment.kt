@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentMapsBinding
@@ -44,50 +46,73 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
         binding = FragmentMapsBinding.inflate(inflater)
 
-        //val rootView: View = inflater.inflate(R.layout.location_fragment, container, false)
         mMapView = binding.map
         mMapView!!.onCreate(savedInstanceState)
-        mMapView!!.onResume() // needed to get the map to display immediately
+        mMapView!!.onResume()
+
         try {
             MapsInitializer.initialize(requireActivity().applicationContext)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
         mMapView!!.getMapAsync { mMap ->
             googleMap = mMap
 
-            // For showing a move to my location button
-            googleMap!!.isMyLocationEnabled = true
+            googleMap?.isMyLocationEnabled = true
 
-            try {
-                // Customise the styling of the base map using a JSON object defined
-                // in a raw resource file.
-                val success = googleMap!!.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(
-                        context, R.raw.map_style
-                    )
-                )
-                if (!success) {
-                    Timber.d("Style parsing failed.")
-                }
-            } catch (e: NotFoundException) {
-                Timber.d(e, "Can't find style. Error: ")
+            googleMap?.setOnInfoWindowClickListener {
+                findNavController().navigate(R.id.action_mapsFragment_to_locationInfoFragment)
             }
 
-            // For dropping a marker at a point on the Map
-//            val sydney = LatLng(-34.0, 151.0)
-//            googleMap!!.addMarker(
-//                MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description")
-//            )
-
-            val startPosition = LatLng(locationViewModel.locationLiveData.value!!.lat, locationViewModel.locationLiveData.value!!.lng)
-
-            val cameraPosition = CameraPosition.Builder().target(startPosition).zoom(12f).build()
-            googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+            setMapStyle()
+            setStartPosition()
+            addNearbyLocationsMarkers()
 
         }
-
         return binding.root
+    }
+
+    private fun setStartPosition() {
+        val startPosition = LatLng(
+            locationViewModel.locationLiveData.value!!.lat,
+            locationViewModel.locationLiveData.value!!.lng
+        )
+
+        val cameraPosition = CameraPosition.Builder().target(startPosition).zoom(12f).build()
+        googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+    }
+
+    private fun addNearbyLocationsMarkers() {
+        for (location in ortViewModel.nearbyLocations.value?.data!!) {
+            googleMap!!.addMarker(
+                MarkerOptions().position(
+                    LatLng(
+                        location.coordinates[1].toDouble(),
+                        location.coordinates[0].toDouble()
+                    )
+                ).snippet(location.name).title(location.name)
+            )
+
+        }
+    }
+
+    private fun setMapStyle() {
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            val success = googleMap!!.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    context, R.raw.map_style
+                )
+            )
+            if (!success) {
+                Timber.d("Style parsing failed.")
+            }
+        } catch (e: NotFoundException) {
+            Timber.d(e, "Can't find style. Error: ")
+        }
     }
 
     override fun onResume() {
