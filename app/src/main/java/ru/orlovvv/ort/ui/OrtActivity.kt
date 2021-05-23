@@ -17,6 +17,7 @@ import ru.orlovvv.ort.databinding.ActivityOrtBinding
 import ru.orlovvv.ort.ui.dialogs.AddLocationDialogFragment
 import ru.orlovvv.ort.ui.dialogs.AddReviewDialogFragment
 import ru.orlovvv.ort.ui.dialogs.BottomNavigationDrawerFragment
+import timber.log.Timber
 
 @AndroidEntryPoint
 class OrtActivity : AppCompatActivity() {
@@ -45,12 +46,13 @@ class OrtActivity : AppCompatActivity() {
             R.id.savedLocationsFragment -> R.menu.bottom_app_bar_saved
             R.id.mapsFragment -> R.menu.bottom_app_bar_map
             R.id.locationInfoFragment -> R.menu.bottom_app_bar_location_info
+            R.id.nearbyLocationsFragment -> R.menu.bottom_app_bar_nearby
             else -> R.menu.bottom_app_bar_nearby
         }
     }
 
     private fun showMenu(isFabVisible: Boolean) {
-        _binding.apply {
+        _binding.run {
             babMenu.visibility = View.VISIBLE
             babMenu.performShow()
             if (isFabVisible) {
@@ -62,14 +64,14 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun hideMenu() {
-        _binding.apply {
+        _binding.run {
             babMenu.visibility = View.GONE
             fab.visibility = View.GONE
         }
     }
 
     private fun setBottomAppBarForSaved(@MenuRes menuRes: Int) {
-        _binding.apply {
+        _binding.run {
             babMenu.replaceMenu(menuRes)
             showMenu(false)
         }
@@ -80,44 +82,43 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
-        _binding.apply {
-            fab.apply {
+        _binding.run {
+            fab.run {
                 setImageResource((R.drawable.ic_add_24))
                 setOnClickListener {
                     Toast.makeText(this@OrtActivity, "Button in progress", Toast.LENGTH_LONG).show()
                 }
-                babMenu.setFabAlignmentModeAndReplaceMenu( BottomAppBar.FAB_ALIGNMENT_MODE_CENTER, menuRes)
             }
+            babMenu.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+            babMenu.replaceMenu(menuRes)
             showMenu(true)
         }
     }
 
     private fun setBottomAppBarForNearby(@MenuRes menuRes: Int) {
-        _binding.apply {
-            fab.apply {
+        _binding.run {
+            fab.run {
                 setImageResource((R.drawable.ic_add_24))
                 setOnClickListener {
                     val dialog = AddLocationDialogFragment()
                     dialog.show(supportFragmentManager, "addLocationFragmentDialog")
                 }
             }
-            babMenu.setFabAlignmentModeAndReplaceMenu(
-                BottomAppBar.FAB_ALIGNMENT_MODE_CENTER,
-                menuRes
-            )
+            babMenu.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+            babMenu.replaceMenu(menuRes)
             showMenu(true)
         }
     }
 
     private fun setBottomAppBarForLocationInfo(@MenuRes menuRes: Int) {
-        _binding.apply {
+        _binding.run {
             fab.setImageResource((R.drawable.ic_write_review_24))
             babMenu.setFabAlignmentModeAndReplaceMenu(
                 BottomAppBar.FAB_ALIGNMENT_MODE_END,
                 menuRes
             )
             showMenu(true)
-            _binding.fab.setOnClickListener {
+            fab.setOnClickListener {
                 val dialog = AddReviewDialogFragment()
                 dialog.show(supportFragmentManager, "addReviewFragmentDialog")
             }
@@ -135,18 +136,23 @@ class OrtActivity : AppCompatActivity() {
             .addOnDestinationChangedListener { contoller, destination, arguments ->
                 when (destination.id) {
                     R.id.nearbyLocationsFragment -> {
+                        Timber.d("Nearby")
                         setBottomAppBarForNearby(getBottomAppBarMenuForDestination(destination))
                     }
                     R.id.savedLocationsFragment -> {
+                        Timber.d("Saved")
                         setBottomAppBarForSaved(getBottomAppBarMenuForDestination(destination))
                     }
                     R.id.mapsFragment -> {
+                        Timber.d("Maps")
                         setBottomAppBarForMaps(getBottomAppBarMenuForDestination(destination))
                     }
                     R.id.locationInfoFragment -> {
+                        Timber.d("Loc info")
                         setBottomAppBarForLocationInfo(getBottomAppBarMenuForDestination(destination))
                     }
                     R.id.loadingFragment -> {
+                        Timber.d("Loading")
                         setBottomAppBarForLoading()
                     }
                 }
