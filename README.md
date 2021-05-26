@@ -1,5 +1,5 @@
 "# ort-app" 
-## Ort app is an android geo application that lets you add, rate, and review nearby markers and palces on the map.
+## Ort app is an android geo application that lets you add, rate, and review nearby markers and places on the map.
 ![Preview](https://media.giphy.com/media/2uLd4BLYIRkC5eATvR/giphy.gif)
 ## Technologies
  * Kotlin
