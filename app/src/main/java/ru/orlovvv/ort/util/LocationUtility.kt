@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
-import android.os.Build
 import pub.devrel.easypermissions.EasyPermissions
 import ru.orlovvv.ort.models.CoordinatesModel
 import java.util.*

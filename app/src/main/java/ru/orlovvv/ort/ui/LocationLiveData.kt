@@ -1,10 +1,8 @@
 package ru.orlovvv.ort.ui
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.Context
 import android.location.Location
-import android.provider.SyncStateContract
 import androidx.lifecycle.LiveData
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest

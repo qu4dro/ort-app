@@ -1,8 +1,6 @@
 package ru.orlovvv.ort.ui.dialogs
 
 import android.app.Dialog
-import android.location.Address
-import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,12 +13,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
-import ru.orlovvv.ort.models.CoordinatesModel
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtViewModel
 import ru.orlovvv.ort.util.LocationUtility
-import java.util.*
 
 
 @AndroidEntryPoint

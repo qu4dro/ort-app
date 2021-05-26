@@ -9,7 +9,6 @@ import ru.orlovvv.ort.repository.OrtRepository
 import ru.orlovvv.ort.util.Resource
 import java.lang.Exception
 import javax.inject.Inject
-import kotlin.reflect.jvm.internal.impl.load.java.components.JavaPropertyInitializerEvaluator
 
 @HiltViewModel
 class OrtViewModel @Inject constructor(private val ortRepository: OrtRepository) : ViewModel() {

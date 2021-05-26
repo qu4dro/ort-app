@@ -6,22 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.FrameLayout
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.activity_ort.*
-import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentBottomNavigationDrawerBinding
-import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
-    private val ortViewModel: OrtViewModel by activityViewModels()
     private lateinit var binding: FragmentBottomNavigationDrawerBinding
     private lateinit var bottomDialog: Dialog
 

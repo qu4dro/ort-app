@@ -3,10 +3,8 @@ package ru.orlovvv.ort.repository
 import androidx.lifecycle.LiveData
 import ru.orlovvv.ort.api.RetrofitInstance
 import ru.orlovvv.ort.db.OrtDAO
-import ru.orlovvv.ort.db.OrtDatabase
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.LocationPreview
-import ru.orlovvv.ort.models.Review
 import ru.orlovvv.ort.models.ReviewPost
 import javax.inject.Inject
 

@@ -10,19 +10,12 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.FrameLayout
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
-import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
 import ru.orlovvv.ort.databinding.FragmentAddReviewDialogBinding
-import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.ReviewPost
-import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 
 @AndroidEntryPoint

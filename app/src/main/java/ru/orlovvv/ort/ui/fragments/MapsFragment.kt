@@ -3,7 +3,6 @@ package ru.orlovvv.ort.ui.fragments
 import android.annotation.SuppressLint
 import android.content.res.Resources.NotFoundException
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +20,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentMapsBinding
-import ru.orlovvv.ort.models.LocationInfo
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.ui.LocationViewModel
-import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 import timber.log.Timber
 import java.io.Serializable
