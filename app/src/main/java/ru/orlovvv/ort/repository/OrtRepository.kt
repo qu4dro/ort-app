@@ -1,26 +1,26 @@
 package ru.orlovvv.ort.repository
 
 import androidx.lifecycle.LiveData
-import ru.orlovvv.ort.api.RetrofitInstance
+import ru.orlovvv.ort.api.Api
 import ru.orlovvv.ort.db.OrtDAO
 import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.models.ReviewPost
 import javax.inject.Inject
 
-class OrtRepository @Inject constructor(private val ortDAO: OrtDAO) {
+class OrtRepository @Inject constructor(private val ortDAO: OrtDAO, private val api: Api) {
 
     // network
     suspend fun getNearbyLocations(lng: Double, lat: Double, maxDistance: Int) =
-        RetrofitInstance.api.getNearbyLocations(lng, lat, maxDistance)
+        api.getNearbyLocations(lng, lat, maxDistance)
 
     suspend fun addLocation(location: LocationPost) =
-        RetrofitInstance.api.addLocation(location)
+        api.addLocation(location)
 
     suspend fun addReview(review: ReviewPost, locationId: String) =
-        RetrofitInstance.api.addReview(review, locationId)
+        api.addReview(review, locationId)
 
-    suspend fun getLocationInfo(id: String) = RetrofitInstance.api.getLocationInfo(id)
+    suspend fun getLocationInfo(id: String) = api.getLocationInfo(id)
 
     // database
     suspend fun insertLocation(locationPreview: LocationPreview) =
