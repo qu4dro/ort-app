@@ -18,6 +18,7 @@
 
 ## In progress
  * FIX RARE NULL ON START
+ * Swipe to refresh
  * Saved items functional
  * Maps more functional
  * Exceptions + responses

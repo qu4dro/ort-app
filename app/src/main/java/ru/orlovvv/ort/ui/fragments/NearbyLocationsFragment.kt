@@ -73,5 +73,6 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
         locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
             Timber.d("${it.lat} ${it.lng}")
         })
+        ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
     }
 }
