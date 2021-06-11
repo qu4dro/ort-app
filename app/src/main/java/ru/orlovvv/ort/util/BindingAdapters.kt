@@ -57,15 +57,7 @@ fun bindRangeBeautiful(chip: Chip, value: Double) {
 
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @BindingAdapter("formattedDate")
 fun bindRangeBeautiful(textView: MaterialTextView, value: String) {
-    val dateFormatted: String =
-        LocalDateTime.parse(
-            value,
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
-        ).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString()
-
-    textView.text = dateFormatted
-
+    textView.text = value.formatDate()
 }
