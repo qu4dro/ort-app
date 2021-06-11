@@ -42,7 +42,6 @@ class LocationLiveData(context: Context) : LiveData<CoordinatesModel>() {
     private val locationCallBack = object : LocationCallback() {
 
         override fun onLocationResult(locationResult: LocationResult?) {
-            super.onLocationResult(locationResult)
 
             locationResult ?: return
 
@@ -66,5 +65,9 @@ class LocationLiveData(context: Context) : LiveData<CoordinatesModel>() {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
+    }
+
+    private fun stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallBack)
     }
 }
