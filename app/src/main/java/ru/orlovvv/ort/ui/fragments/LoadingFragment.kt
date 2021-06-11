@@ -1,6 +1,7 @@
 package ru.orlovvv.ort.ui.fragments
 
 import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,16 +43,17 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
     }
 
     private fun requestLocationUpdates() {
-
         locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
             Timber.d("${it.lat} ${it.lng}")
             ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
         })
 
+
         waitForResponse()
     }
 
     private fun waitForResponse() {
+        Timber.d("asdasdasdasd}")
         ortViewModel.nearbyLocations.observe(viewLifecycleOwner, Observer { response ->
 
             when (response) {
@@ -76,15 +78,29 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
     private fun requestPermissions() {
         if (LocationUtility.hasLocationPermissions(requireContext())) {
             requestLocationUpdates()
-        } else {
-            EasyPermissions.requestPermissions(
-                this,
-                "You need to accept location permissions",
-                Constants.REQUEST_CODE_LOCATION_PERMISSION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
+            return
         }
+        else {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                EasyPermissions.requestPermissions(
+                    this,
+                    "You need to accept location permissions",
+                    Constants.REQUEST_CODE_LOCATION_PERMISSION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            } else {
+                EasyPermissions.requestPermissions(
+                    this,
+                    "You need to accept location permissions",
+                    Constants.REQUEST_CODE_LOCATION_PERMISSION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                        //place for code for background location
+                )
+            }
+        }
+
 
     }
 
