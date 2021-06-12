@@ -70,7 +70,7 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
 
             when (response) {
                 is Resource.Success -> {
-                    nav_host_fragment.findNavController()
+                    findNavController()
                         .navigate(R.id.action_loadingFragment_to_nearbyLocationsFragment)
                 }
                 is Resource.Loading -> {

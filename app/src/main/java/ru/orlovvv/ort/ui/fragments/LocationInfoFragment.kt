@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_ort.*
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.adapters.ReviewAdapter
 import ru.orlovvv.ort.databinding.FragmentLocationInfoBinding

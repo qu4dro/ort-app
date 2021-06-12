@@ -7,11 +7,10 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.MenuRes
 import androidx.navigation.NavDestination
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_ort.*
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.ActivityOrtBinding
 import ru.orlovvv.ort.ui.dialogs.AddLocationDialogFragment
@@ -131,8 +130,9 @@ class OrtActivity : AppCompatActivity() {
             val dialog = BottomNavigationDrawerFragment()
             dialog.show(supportFragmentManager, "navigationDrawerMenu")
         }
-
-        nav_host_fragment.findNavController()
+        val navController =
+            Navigation.findNavController(this, R.id.nav_host_fragment)
+        navController
             .addOnDestinationChangedListener { contoller, destination, arguments ->
                 when (destination.id) {
                     R.id.nearbyLocationsFragment -> {

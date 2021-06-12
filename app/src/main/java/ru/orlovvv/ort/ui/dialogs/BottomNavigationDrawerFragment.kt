@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.activity_ort.*
+import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentBottomNavigationDrawerBinding
-import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.ui.OrtActivity
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
@@ -27,9 +27,19 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
         binding = FragmentBottomNavigationDrawerBinding.inflate(inflater, container, false)
 
-        binding.navMenu.setupWithNavController(nav_host_fragment.findNavController())
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navController: NavController
+        (activity as OrtActivity).apply {
+            navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        }
+        binding.navMenu.setupWithNavController(navController)
+
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
