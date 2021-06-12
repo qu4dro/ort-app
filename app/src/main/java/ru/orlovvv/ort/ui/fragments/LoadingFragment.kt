@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -15,12 +16,14 @@ import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentLoadingBinding
+import ru.orlovvv.ort.models.CoordinatesModel
 import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtViewModel
 import ru.orlovvv.ort.util.Constants
 import ru.orlovvv.ort.util.LocationUtility
 import ru.orlovvv.ort.util.Resource
 import timber.log.Timber
+
 
 class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.PermissionCallbacks {
 
@@ -37,23 +40,32 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
 
         binding = FragmentLoadingBinding.inflate(inflater)
 
-        requestPermissions()
-
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requestPermissions()
+
+    }
+
     private fun requestLocationUpdates() {
-        locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
-            Timber.d("${it.lat} ${it.lng}")
-            ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
-        })
+        locationViewModel.locationLiveData.apply {
+            observe(viewLifecycleOwner, object : Observer<CoordinatesModel> {
 
-
-        waitForResponse()
+                override fun onChanged(t: CoordinatesModel?) {
+                    value?.let {
+                        ortViewModel.getNearbyLocationsFromServer(it)
+                        waitForResponse()
+                    }
+                    removeObserver(this)
+                }
+            })
+        }
     }
 
     private fun waitForResponse() {
-        Timber.d("asdasdasdasd}")
         ortViewModel.nearbyLocations.observe(viewLifecycleOwner, Observer { response ->
 
             when (response) {
@@ -79,8 +91,7 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
         if (LocationUtility.hasLocationPermissions(requireContext())) {
             requestLocationUpdates()
             return
-        }
-        else {
+        } else {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 EasyPermissions.requestPermissions(
                     this,
@@ -96,7 +107,7 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
                     Constants.REQUEST_CODE_LOCATION_PERMISSION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION
-                        //place for code for background location
+                    //place for code for background location
                 )
             }
         }
