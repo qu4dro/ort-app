@@ -19,11 +19,9 @@ class LocationLiveData(context: Context) : LiveData<CoordinatesModel>() {
     @SuppressLint("MissingPermission")
     override fun onActive() {
         super.onActive()
-        Timber.d("${value} + ONACTIVE BEFORE")
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location ->
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
             location.also {
                 setLocationData(it)
-                Timber.d("${value} + ONACTIVE AFTER")
             }
         }
         startLocationUpdates()
@@ -42,9 +40,7 @@ class LocationLiveData(context: Context) : LiveData<CoordinatesModel>() {
     private val locationCallBack = object : LocationCallback() {
 
         override fun onLocationResult(locationResult: LocationResult?) {
-
             locationResult ?: return
-
             for (location in locationResult.locations) {
                 setLocationData(location)
             }
@@ -52,7 +48,8 @@ class LocationLiveData(context: Context) : LiveData<CoordinatesModel>() {
 
     }
 
-    private fun setLocationData(location: Location) {
+    private fun setLocationData(location: Location?) {
+        location ?: return
         value = CoordinatesModel(location.longitude, location.latitude)
     }
 
