@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -23,6 +24,7 @@ import ru.orlovvv.ort.databinding.FragmentMapsBinding
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.util.Resource
 import timber.log.Timber
 import java.io.Serializable
 
@@ -78,7 +80,10 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
             setMapStyle()
             setStartPosition()
-            addNearbyLocationsMarkers()
+            ortViewModel.nearbyLocations.apply {
+                this.value ?: addNearbyLocationsMarkers(this)
+            }
+
 
         }
         return binding.root
@@ -95,8 +100,8 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
     }
 
-    private fun addNearbyLocationsMarkers() {
-        for (location in ortViewModel.nearbyLocations.value?.data!!) {
+    private fun addNearbyLocationsMarkers(nearbyLocations: LiveData<Resource<List<LocationPreview>>>) {
+        nearbyLocations.value?.data?.forEach { location ->
             val marker = googleMap!!.addMarker(
                 MarkerOptions().position(
                     LatLng(
@@ -107,6 +112,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             )
             marker.tag = location
         }
+
     }
 
     private fun setMapStyle() {
