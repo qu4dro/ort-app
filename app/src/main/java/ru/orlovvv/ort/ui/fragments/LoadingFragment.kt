@@ -6,23 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.activity_ort.*
+import com.google.android.material.snackbar.Snackbar
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentLoadingBinding
 import ru.orlovvv.ort.models.CoordinatesModel
 import ru.orlovvv.ort.ui.LocationViewModel
+import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 import ru.orlovvv.ort.util.Constants
 import ru.orlovvv.ort.util.LocationUtility
 import ru.orlovvv.ort.util.Resource
-import timber.log.Timber
 
 
 class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.PermissionCallbacks {
@@ -70,16 +69,17 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
 
             when (response) {
                 is Resource.Success -> {
+                    binding.loadingIndicator.visibility = View.GONE
                     findNavController()
                         .navigate(R.id.action_loadingFragment_to_nearbyLocationsFragment)
                 }
                 is Resource.Loading -> {
-                    //
+                    binding.loadingIndicator.visibility = View.VISIBLE
                 }
                 is Resource.Error -> {
-                    response.message.let {
-                        //
-                    }
+                    val snackbar = makeSnack(response.message.toString())
+                    binding.loadingIndicator.visibility = View.GONE
+                    snackbar.show()
                 }
             }
 
@@ -135,5 +135,15 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
     }
-}
 
+    private fun makeSnack(message: String): Snackbar {
+        return Snackbar.make(
+            requireActivity().findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction("Go offline") {
+            findNavController().navigate(R.id.action_loadingFragment_to_nearbyLocationsFragment)
+        }
+    }
+
+}

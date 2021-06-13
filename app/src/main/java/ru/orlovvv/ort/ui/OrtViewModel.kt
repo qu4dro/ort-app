@@ -35,17 +35,17 @@ class OrtViewModel @Inject constructor(private val ortRepository: OrtRepository)
         get() = _currentAddressString
 
     init {
-        
+
         _currentAddressString.value = "Test address string"
     }
 
-    fun getNearbyLocationsFromServer(coordinates : CoordinatesModel) = viewModelScope.launch {
+    fun getNearbyLocationsFromServer(coordinates: CoordinatesModel) = viewModelScope.launch {
         try {
             _nearbyLocations.value = Resource.Loading()
             val response = ortRepository.getNearbyLocations(coordinates.lng, coordinates.lat, 10000)
             _nearbyLocations.value = handleNearbyLocationsResponse(response)
         } catch (e: Exception) {
-//            _nearbyLocations.value = Resource.Success((ArrayList()))
+            _nearbyLocations.value = Resource.Error("Check internet connection")
         }
 
     }

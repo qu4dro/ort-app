@@ -48,6 +48,7 @@
         <action
             android:id="@+id/action_loadingFragment_to_nearbyLocationsFragment"
             app:destination="@id/nearbyLocationsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
             app:popUpTo="@id/loadingFragment"
             app:popUpToInclusive="true" />
     </fragment>
