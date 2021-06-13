@@ -1,8 +1,12 @@
 package ru.orlovvv.ort.ui.fragments
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +49,7 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkGpsEnabled()
         requestPermissions()
 
     }
@@ -111,8 +116,21 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
                 )
             }
         }
+    }
 
+    private fun checkGpsEnabled() {
+        val lm: LocationManager =
+            requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
+        try {
+            locationViewModel.gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        } catch (ex: Exception) {
+
+        }
+
+        if (!locationViewModel.gpsEnabled) {
+            makeCheckLocationSnack()
+        }
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
@@ -144,6 +162,20 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
         ).setAction("Go offline") {
             findNavController().navigate(R.id.action_loadingFragment_to_nearbyLocationsFragment)
         }
+    }
+
+    private fun makeCheckLocationSnack() {
+        val snackbar = Snackbar.make(
+            requireActivity().findViewById(android.R.id.content),
+            "Location disabled",
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction("Enable") {
+            requireContext().startActivity(
+                Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            )
+        }
+
+        snackbar.show()
     }
 
 }
