@@ -80,9 +80,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
             setMapStyle()
             setStartPosition()
-            ortViewModel.nearbyLocations.apply {
-                this.value ?: addNearbyLocationsMarkers(this)
-            }
+            addNearbyLocationsMarkers(ortViewModel.nearbyLocations)
 
 
         }
