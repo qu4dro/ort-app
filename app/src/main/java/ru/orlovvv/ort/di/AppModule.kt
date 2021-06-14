@@ -16,6 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.orlovvv.ort.api.Api
 import ru.orlovvv.ort.db.OrtDatabase
 import ru.orlovvv.ort.util.Constants
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -47,6 +48,8 @@ object AppModule {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(logging)
             .build()
 
