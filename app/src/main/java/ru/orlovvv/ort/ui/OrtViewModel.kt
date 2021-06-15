@@ -30,6 +30,10 @@ class OrtViewModel @Inject constructor(private val ortRepository: OrtRepository)
     val currentLocationInfo: LiveData<Resource<LocationInfo>>
         get() = _currentLocationInfo
 
+    // временная заглушка
+    var currentLocationPreview: LocationPreview? = null
+    // _____
+
     private val _currentAddressString: MutableLiveData<String> = MutableLiveData()
     val currentAddressString: LiveData<String>
         get() = _currentAddressString

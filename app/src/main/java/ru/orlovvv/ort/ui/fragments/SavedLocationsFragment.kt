@@ -52,25 +52,6 @@ class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
             }
         }
 
-        setSearchView()
-    }
-
-    private fun setSearchView() {
-
-        val searchView =
-            (activity as OrtActivity).binding.babMenu.menu.findItem(R.id.search).actionView as SearchView
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                ortViewModel.searchQuery.value = newText
-                return true
-            }
-
-        })
     }
 
     override fun onDestroyView() {

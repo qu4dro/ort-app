@@ -58,17 +58,8 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
                 ortViewModel.getLocationInfo(location._id)
                 swipeRefresh.isRefreshing = false
             }
-        }
 
-        (activity as OrtActivity).binding.babMenu.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.back -> findNavController().navigateUp()
-                R.id.save -> {
-                    ortViewModel.saveLocation(location)
-                    true
-                }
-                else -> true
-            }
+            ortViewModel.currentLocationPreview = location
         }
     }
 

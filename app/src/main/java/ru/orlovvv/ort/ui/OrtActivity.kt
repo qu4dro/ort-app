@@ -6,9 +6,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.MenuRes
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
@@ -24,16 +26,16 @@ class OrtActivity : AppCompatActivity() {
     val ortViewModel: OrtViewModel by viewModels()
     val locationViewModel: LocationViewModel by viewModels()
 
-    private lateinit var _binding: ActivityOrtBinding
+    private var _binding: ActivityOrtBinding? = null
     val binding: ActivityOrtBinding
-        get() = _binding
+        get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         _binding = ActivityOrtBinding.inflate(layoutInflater)
 
-        setContentView(_binding.root)
+        setContentView(binding.root)
 
         setBottomAppBarListeners()
     }
@@ -51,7 +53,7 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun showMenu(isFabVisible: Boolean) {
-        _binding.run {
+        binding.run {
             babMenu.visibility = View.VISIBLE
             babMenu.performShow()
             if (isFabVisible) {
@@ -63,17 +65,32 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun hideMenu() {
-        _binding.run {
+        binding.run {
             babMenu.visibility = View.GONE
             fab.visibility = View.GONE
         }
     }
 
     private fun setBottomAppBarForSaved(@MenuRes menuRes: Int) {
-        _binding.run {
+        binding.run {
             babMenu.replaceMenu(menuRes)
             showMenu(false)
         }
+
+        val searchView =
+            binding.babMenu.menu.findItem(R.id.search).actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                ortViewModel.searchQuery.value = newText
+                return true
+            }
+
+        })
     }
 
     private fun setBottomAppBarForLoading() {
@@ -81,7 +98,7 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun setBottomAppBarForMaps(@MenuRes menuRes: Int) {
-        _binding.run {
+        binding.run {
             fab.run {
                 setImageResource((R.drawable.ic_add_24))
                 setOnClickListener {
@@ -95,7 +112,7 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun setBottomAppBarForNearby(@MenuRes menuRes: Int) {
-        _binding.run {
+        binding.run {
             fab.run {
                 setImageResource((R.drawable.ic_add_24))
                 setOnClickListener {
@@ -110,7 +127,7 @@ class OrtActivity : AppCompatActivity() {
     }
 
     private fun setBottomAppBarForLocationInfo(@MenuRes menuRes: Int) {
-        _binding.run {
+        binding.run {
             fab.setImageResource((R.drawable.ic_write_review_24))
             babMenu.setFabAlignmentModeAndReplaceMenu(
                 BottomAppBar.FAB_ALIGNMENT_MODE_END,
@@ -122,11 +139,27 @@ class OrtActivity : AppCompatActivity() {
                 dialog.show(supportFragmentManager, "addReviewFragmentDialog")
             }
         }
+
+        binding.babMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.back -> {
+                    onBackPressedDispatcher.onBackPressed()
+                    true
+                }
+                R.id.save -> {
+                    ortViewModel.apply {
+                        saveLocation(currentLocationPreview!!)
+                    }
+                    true
+                }
+                else -> true
+            }
+        }
     }
 
     private fun setBottomAppBarListeners() {
 
-        _binding.babMenu.setNavigationOnClickListener {
+        binding.babMenu.setNavigationOnClickListener {
             val dialog = BottomNavigationDrawerFragment()
             dialog.show(supportFragmentManager, "navigationDrawerMenu")
         }
@@ -158,5 +191,10 @@ class OrtActivity : AppCompatActivity() {
                 }
             }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
