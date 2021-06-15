@@ -53,6 +53,11 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
                 )
                 adapter = reviewAdapter
             }
+
+            swipeRefresh.setOnRefreshListener {
+                ortViewModel.getLocationInfo(location._id)
+                swipeRefresh.isRefreshing = false
+            }
         }
 
         (activity as OrtActivity).binding.babMenu.setOnMenuItemClickListener {

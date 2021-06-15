@@ -51,6 +51,10 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
                 )
                 adapter = locationAdapter
             }
+            swipeRefresh.setOnRefreshListener {
+                ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
+                swipeRefresh.isRefreshing = false
+            }
         }
 
 

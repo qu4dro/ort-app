@@ -17,138 +17,145 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_information_block"
-                style="@style/CardViewStyle.ItemStyle"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginVertical="2dp"
+                android:layout_height="match_parent"
+                android:paddingTop="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_information_block"
+                    style="@style/CardViewStyle.ItemStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp">
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/iv_location_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:clickable="false"
-                        android:text="@{String.valueOf(viewModel.currentLocationInfo.data.stars)}"
-                        android:textAppearance="@style/TextStyleSemiBold"
-                        android:textColor="@color/black_900"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_location_services"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_location_services"
-                        app:ratingColor="@{locationPreview.stars}"
-                        tools:text="3" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/tv_location_services"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:backgroundTint="?attr/colorPrimary"
-                        android:clickable="false"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text='@{String.valueOf(locationPreview.services).replaceAll("(^\\[|\\]$)", "")}'
-                        android:textAppearance="@style/TextStyleSemiBold"
-                        android:textColor="?attr/colorOnPrimary"
-                        app:layout_constraintEnd_toStartOf="@id/iv_location_rating"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Service 1, service 2, service 3" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_location_name"
-                        style="@style/TextStyleBold"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{locationPreview.name}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_location_services"
-                        tools:text="Location name" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_location_address"
-                        style="@style/TextStyleRegular"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="5"
-                        android:text="@{locationPreview.address}"
-                        android:textAppearance="?attr/textAppearanceBody1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_location_name"
-                        tools:text="Location address" />
+                        android:padding="16dp">
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/tv_location_range"
-                        style="@style/TextStyleRegular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:clickable="false"
-                        android:maxLines="1"
-                        app:rangeBeautify="@{locationPreview.range}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_location_address"
-                        tools:text="Location range" />
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/iv_location_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:clickable="false"
+                            android:text="@{String.valueOf(viewModel.currentLocationInfo.data.stars)}"
+                            android:textAppearance="@style/TextStyleSemiBold"
+                            android:textColor="@color/black_900"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_location_services"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_location_services"
+                            app:ratingColor="@{locationPreview.stars}"
+                            tools:text="3" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/tv_location_services"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:backgroundTint="?attr/colorPrimary"
+                            android:clickable="false"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text='@{String.valueOf(locationPreview.services).replaceAll("(^\\[|\\]$)", "")}'
+                            android:textAppearance="@style/TextStyleSemiBold"
+                            android:textColor="?attr/colorOnPrimary"
+                            app:layout_constraintEnd_toStartOf="@id/iv_location_rating"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Service 1, service 2, service 3" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_location_name"
+                            style="@style/TextStyleBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{locationPreview.name}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_location_services"
+                            tools:text="Location name" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_location_address"
+                            style="@style/TextStyleRegular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="5"
+                            android:text="@{locationPreview.address}"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_location_name"
+                            tools:text="Location address" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/tv_location_range"
+                            style="@style/TextStyleRegular"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:clickable="false"
+                            android:maxLines="1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_location_address"
+                            app:rangeBeautify="@{locationPreview.range}"
+                            tools:text="Location range" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+                </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:visibility="@{viewModel.currentLocationInfo.data.reviews == null ? View.VISIBLE : View.GONE}"
-                app:layout_constraintEnd_toEndOf="@id/cv_information_block"
-                app:layout_constraintStart_toStartOf="@id/cv_information_block"
-                app:layout_constraintTop_toBottomOf="@id/cv_information_block" />
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="@{viewModel.currentLocationInfo.data.reviews == null ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="@id/cv_information_block"
+                    app:layout_constraintStart_toStartOf="@id/cv_information_block"
+                    app:layout_constraintTop_toBottomOf="@id/cv_information_block" />
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_reviews_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:paddingTop="2dp"
-                android:paddingBottom="56dp"
-                android:transitionGroup="true"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cv_information_block"
-                app:reviewsList="@{viewModel.currentLocationInfo.data.reviews}" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_reviews_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="56dp"
+                    android:transitionGroup="true"
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cv_information_block"
+                    app:reviewsList="@{viewModel.currentLocationInfo.data.reviews}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
