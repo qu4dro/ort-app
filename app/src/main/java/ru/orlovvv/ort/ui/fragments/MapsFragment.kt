@@ -35,9 +35,11 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
     private val ortViewModel: OrtViewModel by activityViewModels()
     private val locationViewModel: LocationViewModel by activityViewModels()
 
-    private lateinit var binding: FragmentMapsBinding
+    private var _binding: FragmentMapsBinding? = null
+    val binding
+    get() = _binding!!
 
-    var mMapView: MapView? = null
+    private var mMapView: MapView? = null
     private var googleMap: GoogleMap? = null
 
     @SuppressLint("MissingPermission")
@@ -45,9 +47,9 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = FragmentMapsBinding.inflate(inflater)
+        _binding = FragmentMapsBinding.inflate(inflater, container, false)
 
         mMapView = binding.map
         mMapView!!.onCreate(savedInstanceState)
@@ -148,6 +150,11 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
     override fun onLowMemory() {
         super.onLowMemory()
         mMapView!!.onLowMemory()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

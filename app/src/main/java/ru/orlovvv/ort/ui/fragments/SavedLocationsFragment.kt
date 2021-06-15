@@ -18,26 +18,33 @@ import ru.orlovvv.ort.ui.OrtViewModel
 @AndroidEntryPoint
 class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
 
-    private lateinit var binding: FragmentSavedLocationsBinding
-    private lateinit var locationAdapter: LocationAdapter
+    private val ortViewModel: OrtViewModel by activityViewModels()
+    private val locationAdapter: LocationAdapter = LocationAdapter()
 
-    private val ortViewModel : OrtViewModel by activityViewModels()
+    private var _binding: FragmentSavedLocationsBinding? = null
+    val binding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = FragmentSavedLocationsBinding.inflate(inflater)
-        locationAdapter = LocationAdapter()
+        _binding = FragmentSavedLocationsBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             lifecycleOwner = this@SavedLocationsFragment
             viewModel = ortViewModel
             rvSavedLocations.apply {
                 layoutManager = LinearLayoutManager(
-                    inflater.context,
+                    view.context,
                     LinearLayoutManager.VERTICAL,
                     false
                 )
@@ -46,13 +53,12 @@ class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
         }
 
         setSearchView()
-
-        return binding.root
     }
 
     private fun setSearchView() {
 
-        val searchView = (activity as OrtActivity).binding.babMenu.menu.findItem(R.id.search).actionView as SearchView
+        val searchView =
+            (activity as OrtActivity).binding.babMenu.menu.findItem(R.id.search).actionView as SearchView
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -65,6 +71,11 @@ class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
             }
 
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -16,16 +16,21 @@ import ru.orlovvv.ort.ui.OrtActivity
 
 class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
 
-    private lateinit var binding: FragmentBottomNavigationDrawerBinding
-    private lateinit var bottomDialog: Dialog
+    private var _binding: FragmentBottomNavigationDrawerBinding? = null
+    private val binding
+        get() = _binding!!
+
+    private var _bottomDialog: Dialog? = null
+    private val bottomDialog
+        get() = _bottomDialog!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = FragmentBottomNavigationDrawerBinding.inflate(inflater, container, false)
+        _binding = FragmentBottomNavigationDrawerBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -43,9 +48,15 @@ class BottomNavigationDrawerFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        bottomDialog = super.onCreateDialog(savedInstanceState)
+        _bottomDialog = super.onCreateDialog(savedInstanceState)
         bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         return bottomDialog
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        _bottomDialog = null
     }
 
 }

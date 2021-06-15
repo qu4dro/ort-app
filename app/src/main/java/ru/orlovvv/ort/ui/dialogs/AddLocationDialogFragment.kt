@@ -17,6 +17,7 @@ import ru.orlovvv.ort.models.LocationPost
 import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtViewModel
 import ru.orlovvv.ort.util.LocationUtility
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -24,34 +25,45 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
     private val ortViewModel: OrtViewModel by activityViewModels()
     private val locationViewModel: LocationViewModel by activityViewModels()
-    private lateinit var binding: FragmentAddLocationDialogBinding
-    private lateinit var bottomDialog: Dialog
+
+    private var _binding: FragmentAddLocationDialogBinding? = null
+    val binding
+        get() = _binding!!
+    private var _bottomDialog: Dialog? = null
+
+    private val bottomDialog
+        get() = _bottomDialog!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = FragmentAddLocationDialogBinding.inflate(inflater, container, false)
-
-        binding.apply {
-            ivGetAddress.setOnClickListener {
-                binding.etLocationAddress.setText(LocationUtility.getAddressString(locationViewModel.locationLiveData.value!!, requireContext()))
-            }
-        }
+        _binding = FragmentAddLocationDialogBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        bottomDialog = super.onCreateDialog(savedInstanceState)
+        _bottomDialog = super.onCreateDialog(savedInstanceState)
         bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         return bottomDialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            ivGetAddress.setOnClickListener {
+                binding.etLocationAddress.setText(
+                    LocationUtility.getAddressString(
+                        locationViewModel.locationLiveData.value!!,
+                        requireContext()
+                    )
+                )
+            }
+        }
 
         binding.ivCloseDialog.setOnClickListener {
             bottomDialog.dismiss()
@@ -91,6 +103,12 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 locationViewModel.locationLiveData.value!!.lat,
             )
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        _bottomDialog = null
     }
 
 }

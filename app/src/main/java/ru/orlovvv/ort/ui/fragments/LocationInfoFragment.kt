@@ -20,25 +20,28 @@ import ru.orlovvv.ort.ui.OrtViewModel
 @AndroidEntryPoint
 class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
 
-    private val ortViewModel : OrtViewModel by activityViewModels()
-
-    private val args: LocationInfoFragmentArgs by navArgs()
-
-    private lateinit var binding: FragmentLocationInfoBinding
-    private lateinit var reviewAdapter: ReviewAdapter
+    private val ortViewModel: OrtViewModel by activityViewModels()
+    private val reviewAdapter: ReviewAdapter = ReviewAdapter()
     private lateinit var location: LocationPreview
+    private var _binding: FragmentLocationInfoBinding? = null
+    val binding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         location = arguments?.get("location") as LocationPreview
 
-        reviewAdapter = ReviewAdapter()
+        _binding = FragmentLocationInfoBinding.inflate(inflater, container, false)
 
-        binding = FragmentLocationInfoBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             lifecycleOwner = this@LocationInfoFragment
@@ -46,19 +49,13 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
             locationPreview = location
             rvReviewsBlock.apply {
                 layoutManager = LinearLayoutManager(
-                    inflater.context,
+                    view.context,
                     LinearLayoutManager.VERTICAL,
                     false
                 )
                 adapter = reviewAdapter
             }
         }
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         (activity as OrtActivity).binding.babMenu.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -70,5 +67,10 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
                 else -> true
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -21,7 +21,6 @@ import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentLoadingBinding
 import ru.orlovvv.ort.models.CoordinatesModel
 import ru.orlovvv.ort.ui.LocationViewModel
-import ru.orlovvv.ort.ui.OrtActivity
 import ru.orlovvv.ort.ui.OrtViewModel
 import ru.orlovvv.ort.util.Constants
 import ru.orlovvv.ort.util.LocationUtility
@@ -33,15 +32,18 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
     private val ortViewModel: OrtViewModel by activityViewModels()
     private val locationViewModel: LocationViewModel by activityViewModels()
 
-    private lateinit var binding: FragmentLoadingBinding
+    private var _binding: FragmentLoadingBinding? = null
+    private val binding
+        get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = FragmentLoadingBinding.inflate(inflater)
+        _binding = FragmentLoadingBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -178,4 +180,9 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
         snackbar.show()
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

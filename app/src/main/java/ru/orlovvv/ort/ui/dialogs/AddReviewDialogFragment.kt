@@ -21,18 +21,23 @@ import ru.orlovvv.ort.ui.OrtViewModel
 @AndroidEntryPoint
 class AddReviewDialogFragment : BottomSheetDialogFragment() {
 
-    private val ortViewModel : OrtViewModel by activityViewModels()
+    private val ortViewModel: OrtViewModel by activityViewModels()
 
-    private lateinit var binding: FragmentAddReviewDialogBinding
-    private lateinit var bottomDialog: Dialog
+    private var _binding: FragmentAddReviewDialogBinding? = null
+    private val binding
+        get() = _binding!!
+
+    private var _bottomDialog: Dialog? = null
+    private val bottomDialog
+        get() = _bottomDialog!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = FragmentAddReviewDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentAddReviewDialogBinding.inflate(inflater, container, false)
 
         val items = listOf("5", "4", "3", "2", "1")
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
@@ -42,7 +47,7 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        bottomDialog = super.onCreateDialog(savedInstanceState)
+        _bottomDialog = super.onCreateDialog(savedInstanceState)
         bottomDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         return bottomDialog
@@ -88,6 +93,12 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
             ), ortViewModel.currentLocationInfo.value?.data!!._id
         )
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        _bottomDialog = null
     }
 
 }

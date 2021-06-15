@@ -22,25 +22,32 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
     private val ortViewModel: OrtViewModel by activityViewModels()
     private val locationViewModel: LocationViewModel by activityViewModels()
+    private val locationAdapter: LocationAdapter = LocationAdapter()
 
-    private lateinit var binding: FragmentNearbyLocationsBinding
-    private lateinit var locationAdapter: LocationAdapter
+    private var _binding: FragmentNearbyLocationsBinding? = null
+    val binding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        binding = FragmentNearbyLocationsBinding.inflate(inflater)
-        locationAdapter = LocationAdapter()
+        _binding = FragmentNearbyLocationsBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             lifecycleOwner = this@NearbyLocationsFragment
             viewModel = ortViewModel
             rvNearbyLocations.apply {
                 layoutManager = LinearLayoutManager(
-                    inflater.context,
+                    view.context,
                     LinearLayoutManager.VERTICAL,
                     false
                 )
@@ -48,11 +55,6 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
             }
         }
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         locationAdapter.setOnItemClickListener {
             ortViewModel.getLocationInfo(it._id)
@@ -73,5 +75,10 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
         locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
         })
         //ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
