@@ -17,11 +17,8 @@
  * Material components
 
 ## In progress
- * FIX RARE NULL ON START
- * Swipe to refresh in nearby
  * Saved items functional
  * Maps more functional
- * Exceptions + responses
  * Tests
  * Icon
  * Support for multiple languages
