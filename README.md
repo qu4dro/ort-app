@@ -22,3 +22,4 @@
  * Tests
  * Icon
  * Support for multiple languages
+ * Fix bottom menu in location info fragment
