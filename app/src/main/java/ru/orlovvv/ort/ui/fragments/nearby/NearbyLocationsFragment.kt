@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.ui.fragments
+package ru.orlovvv.ort.ui.fragments.nearby
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
-import ru.orlovvv.ort.adapters.LocationAdapter
 import ru.orlovvv.ort.databinding.FragmentNearbyLocationsBinding
 import ru.orlovvv.ort.ui.LocationViewModel
 import ru.orlovvv.ort.ui.OrtViewModel
-import timber.log.Timber
 
 @AndroidEntryPoint
 class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {

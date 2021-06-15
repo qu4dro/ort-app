@@ -1,10 +1,9 @@
 package ru.orlovvv.ort.ui
 
 import android.app.Application
-import android.location.LocationManager
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.orlovvv.ort.util.LocationLiveData
 import javax.inject.Inject
 
 @HiltViewModel

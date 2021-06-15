@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.ui.fragments
+package ru.orlovvv.ort.ui.fragments.location
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
-import ru.orlovvv.ort.adapters.ReviewAdapter
 import ru.orlovvv.ort.databinding.FragmentLocationInfoBinding
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.ui.OrtActivity

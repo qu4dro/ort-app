@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/nearbyLocationsFragment"
-        android:name="ru.orlovvv.ort.ui.fragments.NearbyLocationsFragment"
+        android:name="ru.orlovvv.ort.ui.fragments.nearby.NearbyLocationsFragment"
         android:label="NearbyLocationsFragment">
         <action
             android:id="@+id/action_nearbyLocationsFragment_to_locationInfoFragment"
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationInfoFragment"
-        android:name="ru.orlovvv.ort.ui.fragments.LocationInfoFragment"
+        android:name="ru.orlovvv.ort.ui.fragments.location.LocationInfoFragment"
         android:label="LocationInfoFragment">
         <argument
             android:name="location"

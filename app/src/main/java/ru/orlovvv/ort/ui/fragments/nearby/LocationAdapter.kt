@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.adapters
+package ru.orlovvv.ort.ui.fragments.nearby
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -41,7 +41,7 @@ class LocationAdapter :
         )
     }
 
-    override fun onBindViewHolder(holder: LocationAdapter.LocationViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         val locationPreview = getItem(position)
 
         holder.itemView.setOnClickListener {

@@ -1,20 +1,16 @@
 package ru.orlovvv.ort.util
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.textview.MaterialTextView
 import ru.orlovvv.ort.R
-import ru.orlovvv.ort.adapters.LocationAdapter
-import ru.orlovvv.ort.adapters.ReviewAdapter
+import ru.orlovvv.ort.ui.fragments.nearby.LocationAdapter
+import ru.orlovvv.ort.ui.fragments.location.ReviewAdapter
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.models.Review
 import java.math.RoundingMode
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 @BindingAdapter("locationsPreviewList")

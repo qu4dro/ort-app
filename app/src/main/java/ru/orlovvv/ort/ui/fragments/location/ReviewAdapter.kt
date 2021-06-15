@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.adapters
+package ru.orlovvv.ort.ui.fragments.location
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -35,7 +35,7 @@ class ReviewAdapter : ListAdapter<Review, ReviewAdapter.ReviewViewHolder>(Review
         )
     }
 
-    override fun onBindViewHolder(holder: ReviewAdapter.ReviewViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         val review = getItem(position)
 
         holder.bind(review)

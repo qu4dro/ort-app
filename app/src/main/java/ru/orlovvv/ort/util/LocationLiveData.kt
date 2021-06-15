@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.ui
+package ru.orlovvv.ort.util
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,8 +9,6 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import ru.orlovvv.ort.models.CoordinatesModel
-import ru.orlovvv.ort.util.Constants
-import timber.log.Timber
 
 class LocationLiveData(context: Context) : LiveData<CoordinatesModel>() {
 
