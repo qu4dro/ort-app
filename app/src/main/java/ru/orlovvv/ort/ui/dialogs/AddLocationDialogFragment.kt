@@ -82,12 +82,12 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
                 createLocation()
                 bottomDialog.dismiss()
                 ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
+            } else {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.tilLocationName.error = null
+                    binding.tilLocationTags.error = null
+                }, 2000)
             }
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.tilLocationName.error = null
-                binding.tilLocationTags.error = null
-            }, 2000)
 
         }
 

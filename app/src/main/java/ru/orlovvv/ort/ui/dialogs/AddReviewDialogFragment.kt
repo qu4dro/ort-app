@@ -73,13 +73,12 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
                 addReview()
                 bottomDialog.dismiss()
                 ortViewModel.getLocationInfo(ortViewModel.currentLocationInfo.value?.data!!._id)
+            } else {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.tilAuthorName.error = null
+                    binding.tilReviewText.error = null
+                }, 2000)
             }
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.tilAuthorName.error = null
-                binding.tilReviewText.error = null
-            }, 2000)
-
         }
 
     }
