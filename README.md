@@ -22,4 +22,4 @@
  * Tests
  * Icon
  * Support for multiple languages
- * Fix bottom menu in location info fragment
+ * Add lifecycle location and internet check
