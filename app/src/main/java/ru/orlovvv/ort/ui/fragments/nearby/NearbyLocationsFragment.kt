@@ -21,8 +21,6 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
     private val coordinatesViewModel: CoordinatesViewModel by activityViewModels()
     private val nearbyLocationsViewModel: NearbyLocationsViewModel by activityViewModels()
 
-    private val locationAdapter: LocationAdapter = LocationAdapter()
-
     private var _binding: FragmentNearbyLocationsBinding? = null
     val binding
         get() = _binding!!
@@ -45,33 +43,28 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
             lifecycleOwner = this@NearbyLocationsFragment
             viewModel = nearbyLocationsViewModel
             rvNearbyLocations.apply {
-                layoutManager = LinearLayoutManager(
-                    view.context,
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
-                adapter = locationAdapter
+                adapter = LocationAdapter().apply {
+                    setOnItemClickListener {
+                        nearbyLocationsViewModel.getLocationInfo(it._id)
+                        nearbyLocationsViewModel.setSelectedLocationPreview(it)
+//                        val bundle = Bundle().apply {
+//                            putSerializable("location", it)
+//                        }
+
+                        findNavController().navigate(
+                            R.id.action_nearbyLocationsFragment_to_locationInfoFragment
+                        )
+                    }
+                    setHasFixedSize(true)
+                }
             }
+
             swipeRefresh.setOnRefreshListener {
                 nearbyLocationsViewModel.getNearbyLocationsFromServer(coordinatesViewModel.locationLiveData.value!!)
                 swipeRefresh.isRefreshing = false
             }
+
         }
-
-
-        locationAdapter.setOnItemClickListener {
-            nearbyLocationsViewModel.getLocationInfo(it._id)
-            nearbyLocationsViewModel.setSelectedLocationPreview(it)
-
-            val bundle = Bundle().apply {
-                putSerializable("location", it)
-            }
-            findNavController().navigate(
-                R.id.action_nearbyLocationsFragment_to_locationInfoFragment,
-                bundle
-            )
-        }
-
     }
 
     override fun onResume() {
