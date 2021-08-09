@@ -150,9 +150,9 @@ class OrtActivity : AppCompatActivity() {
                     true
                 }
                 R.id.save -> {
-//                    ortViewModel.apply {
-//                        saveLocation(currentLocationPreview!!)
-//                    }
+                    savedLocationsViewModel.apply {
+                        saveLocation(nearbyLocationsViewModel.selectedLocationPreview.value!!)
+                    }
                     true
                 }
                 else -> true
