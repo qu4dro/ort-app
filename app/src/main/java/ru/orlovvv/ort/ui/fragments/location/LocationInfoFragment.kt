@@ -18,8 +18,6 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
 
     private val nearbyLocationsViewModel: NearbyLocationsViewModel by activityViewModels()
 
-    private val reviewAdapter: ReviewAdapter = ReviewAdapter()
-    private lateinit var location: LocationPreview
     private var _binding: FragmentLocationInfoBinding? = null
     val binding
         get() = _binding!!
@@ -30,8 +28,6 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
         savedInstanceState: Bundle?
     ): View {
 
-        location = arguments?.get("location") as LocationPreview
-
         _binding = FragmentLocationInfoBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -40,24 +36,21 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val selectedLocation: LocationPreview = nearbyLocationsViewModel.selectedLocationPreview.value ?: LocationPreview()
+
         binding.apply {
             lifecycleOwner = this@LocationInfoFragment
             viewModel = nearbyLocationsViewModel
-            locationPreview = location
+            locationPreview = selectedLocation
             rvReviewsBlock.apply {
-                layoutManager = LinearLayoutManager(
-                    view.context,
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
-                adapter = reviewAdapter
+                adapter = ReviewAdapter()
             }
 
-            swipeRefresh.setOnRefreshListener { nearbyLocationsViewModel.getLocationInfo(location._id)
+            swipeRefresh.setOnRefreshListener {
+                nearbyLocationsViewModel.getLocationInfo(selectedLocation._id)
                 swipeRefresh.isRefreshing = false
             }
 
-            nearbyLocationsViewModel.setSelectedLocationPreview(location)
         }
     }
 

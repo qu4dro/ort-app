@@ -61,6 +61,7 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
         locationAdapter.setOnItemClickListener {
             nearbyLocationsViewModel.getLocationInfo(it._id)
+            nearbyLocationsViewModel.setSelectedLocationPreview(it)
 
             val bundle = Bundle().apply {
                 putSerializable("location", it)
