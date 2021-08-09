@@ -23,4 +23,5 @@ interface Api {
 
     @POST("/api/locations/{id}/reviews")
     suspend fun addReview(@Body review: ReviewPost, @Path("id") id: String): Response<Void>
+
 }

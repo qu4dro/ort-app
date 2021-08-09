@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.ui.fragments.nearby.LocationAdapter
 import ru.orlovvv.ort.databinding.FragmentSavedLocationsBinding
-import ru.orlovvv.ort.ui.OrtActivity
-import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.viewmodels.OrtViewModel
 
 @AndroidEntryPoint
 class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {

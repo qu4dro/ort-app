@@ -22,9 +22,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentMapsBinding
 import ru.orlovvv.ort.models.LocationPreview
-import ru.orlovvv.ort.ui.LocationViewModel
-import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
+import ru.orlovvv.ort.viewmodels.OrtViewModel
 import ru.orlovvv.ort.util.Resource
+import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
 import timber.log.Timber
 import java.io.Serializable
 
@@ -32,8 +33,8 @@ import java.io.Serializable
 @AndroidEntryPoint
 class MapsFragment : Fragment(R.layout.fragment_maps) {
 
-    private val ortViewModel: OrtViewModel by activityViewModels()
-    private val locationViewModel: LocationViewModel by activityViewModels()
+    private val nearbyLocations: NearbyLocationsViewModel by activityViewModels()
+    private val coordinatesViewModel: CoordinatesViewModel by activityViewModels()
 
     private var _binding: FragmentMapsBinding? = null
     val binding
@@ -68,7 +69,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
             googleMap?.setOnInfoWindowClickListener {
                 val location = it.tag as LocationPreview
-                ortViewModel.getLocationInfo(location._id)
+                nearbyLocations.getLocationInfo(location._id)
 
                 val bundle = Bundle().apply {
                     putSerializable("location", it.tag as Serializable?)
@@ -82,7 +83,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
             setMapStyle()
             setStartPosition()
-            addNearbyLocationsMarkers(ortViewModel.nearbyLocations)
+            addNearbyLocationsMarkers(nearbyLocations.nearbyLocations)
 
 
         }
@@ -91,8 +92,8 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
     private fun setStartPosition() {
         val startPosition = LatLng(
-            locationViewModel.locationLiveData.value!!.lat,
-            locationViewModel.locationLiveData.value!!.lng
+            coordinatesViewModel.locationLiveData.value!!.lat,
+            coordinatesViewModel.locationLiveData.value!!.lng
         )
 
         val cameraPosition = CameraPosition.Builder().target(startPosition).zoom(12f).build()
@@ -131,7 +132,6 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             Timber.d(e, "Can't find style. Error: ")
         }
     }
-
     override fun onResume() {
         super.onResume()
         mMapView!!.onResume()

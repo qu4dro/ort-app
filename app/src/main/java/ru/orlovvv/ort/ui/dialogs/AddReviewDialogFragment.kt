@@ -16,12 +16,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddReviewDialogBinding
 import ru.orlovvv.ort.models.ReviewPost
-import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
+import ru.orlovvv.ort.viewmodels.OrtViewModel
 
 @AndroidEntryPoint
 class AddReviewDialogFragment : BottomSheetDialogFragment() {
 
-    private val ortViewModel: OrtViewModel by activityViewModels()
+    private val nearbyLocationsViewModel: NearbyLocationsViewModel by activityViewModels()
 
     private var _binding: FragmentAddReviewDialogBinding? = null
     private val binding
@@ -72,7 +73,7 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
             ) {
                 addReview()
                 bottomDialog.dismiss()
-                ortViewModel.getLocationInfo(ortViewModel.currentLocationInfo.value?.data!!._id)
+                nearbyLocationsViewModel.getLocationInfo(nearbyLocationsViewModel.currentLocationInfo.value?.data!!._id)
             } else {
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.tilAuthorName.error = null
@@ -84,12 +85,12 @@ class AddReviewDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun addReview() {
-        ortViewModel.addReview(
+        nearbyLocationsViewModel.addReview(
             ReviewPost(
                 binding.etAuthorName.text.toString(),
                 binding.etReviewText.text.toString(),
                 binding.acRating.text.toString()
-            ), ortViewModel.currentLocationInfo.value?.data!!._id
+            ), nearbyLocationsViewModel.currentLocationInfo.value?.data!!._id
         )
 
     }

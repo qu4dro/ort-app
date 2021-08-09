@@ -12,14 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentNearbyLocationsBinding
-import ru.orlovvv.ort.ui.LocationViewModel
-import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
+import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
+import ru.orlovvv.ort.viewmodels.OrtViewModel
 
 @AndroidEntryPoint
 class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
-    private val ortViewModel: OrtViewModel by activityViewModels()
-    private val locationViewModel: LocationViewModel by activityViewModels()
+    private val coordinatesViewModel: CoordinatesViewModel by activityViewModels()
+    private val nearbyLocationsViewModel: NearbyLocationsViewModel by activityViewModels()
+
     private val locationAdapter: LocationAdapter = LocationAdapter()
 
     private var _binding: FragmentNearbyLocationsBinding? = null
@@ -42,7 +44,7 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
         binding.apply {
             lifecycleOwner = this@NearbyLocationsFragment
-            viewModel = ortViewModel
+            viewModel = nearbyLocationsViewModel
             rvNearbyLocations.apply {
                 layoutManager = LinearLayoutManager(
                     view.context,
@@ -52,14 +54,14 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
                 adapter = locationAdapter
             }
             swipeRefresh.setOnRefreshListener {
-                ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
+                nearbyLocationsViewModel.getNearbyLocationsFromServer(coordinatesViewModel.locationLiveData.value!!)
                 swipeRefresh.isRefreshing = false
             }
         }
 
 
         locationAdapter.setOnItemClickListener {
-            ortViewModel.getLocationInfo(it._id)
+            nearbyLocationsViewModel.getLocationInfo(it._id)
 
             val bundle = Bundle().apply {
                 putSerializable("location", it)
@@ -74,9 +76,7 @@ class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {
 
     override fun onResume() {
         super.onResume()
-        locationViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {
-        })
-        //ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
+        coordinatesViewModel.locationLiveData.observe(viewLifecycleOwner, Observer {})
     }
 
     override fun onDestroyView() {

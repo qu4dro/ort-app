@@ -10,7 +10,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomappbar.BottomAppBar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
@@ -18,13 +17,17 @@ import ru.orlovvv.ort.databinding.ActivityOrtBinding
 import ru.orlovvv.ort.ui.dialogs.AddLocationDialogFragment
 import ru.orlovvv.ort.ui.dialogs.AddReviewDialogFragment
 import ru.orlovvv.ort.ui.dialogs.BottomNavigationDrawerFragment
+import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
+import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
+import ru.orlovvv.ort.viewmodels.OrtViewModel
 import timber.log.Timber
 
 @AndroidEntryPoint
 class OrtActivity : AppCompatActivity() {
 
     val ortViewModel: OrtViewModel by viewModels()
-    val locationViewModel: LocationViewModel by viewModels()
+    private val nearbyLocationsViewModel: NearbyLocationsViewModel by viewModels()
+    val coordinatesViewModel: CoordinatesViewModel by viewModels()
 
     private var _binding: ActivityOrtBinding? = null
     val binding: ActivityOrtBinding
@@ -147,9 +150,9 @@ class OrtActivity : AppCompatActivity() {
                     true
                 }
                 R.id.save -> {
-                    ortViewModel.apply {
-                        saveLocation(currentLocationPreview!!)
-                    }
+//                    ortViewModel.apply {
+//                        saveLocation(currentLocationPreview!!)
+//                    }
                     true
                 }
                 else -> true

@@ -20,17 +20,18 @@ import pub.devrel.easypermissions.EasyPermissions
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentLoadingBinding
 import ru.orlovvv.ort.models.CoordinatesModel
-import ru.orlovvv.ort.ui.LocationViewModel
-import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
+import ru.orlovvv.ort.viewmodels.OrtViewModel
 import ru.orlovvv.ort.util.Constants
 import ru.orlovvv.ort.util.LocationUtility
 import ru.orlovvv.ort.util.Resource
+import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
 
 
 class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.PermissionCallbacks {
 
-    private val ortViewModel: OrtViewModel by activityViewModels()
-    private val locationViewModel: LocationViewModel by activityViewModels()
+    private val nearbyLocationsViewModel: NearbyLocationsViewModel by activityViewModels()
+    private val coordinatesViewModel: CoordinatesViewModel by activityViewModels()
 
     private var _binding: FragmentLoadingBinding? = null
     private val binding
@@ -57,12 +58,12 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
     }
 
     private fun requestLocationUpdates() {
-        locationViewModel.locationLiveData.apply {
+        coordinatesViewModel.locationLiveData.apply {
             observe(viewLifecycleOwner, object : Observer<CoordinatesModel> {
 
                 override fun onChanged(t: CoordinatesModel?) {
                     value?.let {
-                        ortViewModel.getNearbyLocationsFromServer(it)
+                        nearbyLocationsViewModel.getNearbyLocationsFromServer(it)
                         waitForResponse()
                     }
                     removeObserver(this)
@@ -72,7 +73,7 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
     }
 
     private fun waitForResponse() {
-        ortViewModel.nearbyLocations.observe(viewLifecycleOwner, Observer { response ->
+        nearbyLocationsViewModel.nearbyLocations.observe(viewLifecycleOwner, Observer { response ->
 
             when (response) {
                 is Resource.Success -> {
@@ -125,12 +126,12 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
             requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         try {
-            locationViewModel.gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
+            coordinatesViewModel.gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER)
         } catch (ex: Exception) {
 
         }
 
-        if (!locationViewModel.gpsEnabled) {
+        if (!coordinatesViewModel.gpsEnabled) {
             makeCheckLocationSnack()
         }
     }

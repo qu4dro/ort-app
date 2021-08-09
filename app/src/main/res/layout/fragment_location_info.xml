@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="ru.orlovvv.ort.ui.OrtViewModel" />
+            type="ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel" />
 
         <import type="android.view.View" />
 

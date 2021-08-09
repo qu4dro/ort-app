@@ -14,17 +14,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
 import ru.orlovvv.ort.models.LocationPost
-import ru.orlovvv.ort.ui.LocationViewModel
-import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
+import ru.orlovvv.ort.viewmodels.OrtViewModel
 import ru.orlovvv.ort.util.LocationUtility
-import timber.log.Timber
+import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
 
 
 @AndroidEntryPoint
 class AddLocationDialogFragment : BottomSheetDialogFragment() {
 
-    private val ortViewModel: OrtViewModel by activityViewModels()
-    private val locationViewModel: LocationViewModel by activityViewModels()
+    private val nearbyLocationsViewModel: NearbyLocationsViewModel by activityViewModels()
+    private val coordinatesViewModel: CoordinatesViewModel by activityViewModels()
 
     private var _binding: FragmentAddLocationDialogBinding? = null
     val binding
@@ -58,7 +58,7 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
             ivGetAddress.setOnClickListener {
                 binding.etLocationAddress.setText(
                     LocationUtility.getAddressString(
-                        locationViewModel.locationLiveData.value!!,
+                        coordinatesViewModel.locationLiveData.value!!,
                         requireContext()
                     )
                 )
@@ -81,7 +81,6 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
             ) {
                 createLocation()
                 bottomDialog.dismiss()
-                ortViewModel.getNearbyLocationsFromServer(locationViewModel.locationLiveData.value!!)
             } else {
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.tilLocationName.error = null
@@ -94,13 +93,13 @@ class AddLocationDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun createLocation() {
-        ortViewModel.addLocation(
+        nearbyLocationsViewModel.addLocation(
             LocationPost(
                 binding.etLocationName.text.toString(),
                 binding.etLocationAddress.text.toString(),
                 binding.etLocationTags.text.toString(),
-                locationViewModel.locationLiveData.value!!.lng,
-                locationViewModel.locationLiveData.value!!.lat,
+                coordinatesViewModel.locationLiveData.value!!.lng,
+                coordinatesViewModel.locationLiveData.value!!.lat,
             )
         )
     }

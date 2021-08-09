@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentLocationInfoBinding
 import ru.orlovvv.ort.models.LocationPreview
-import ru.orlovvv.ort.ui.OrtActivity
-import ru.orlovvv.ort.ui.OrtViewModel
+import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
+import ru.orlovvv.ort.viewmodels.OrtViewModel
 
 @AndroidEntryPoint
 class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
 
-    private val ortViewModel: OrtViewModel by activityViewModels()
+    private val nearbyLocationsViewModel: NearbyLocationsViewModel by activityViewModels()
+
     private val reviewAdapter: ReviewAdapter = ReviewAdapter()
     private lateinit var location: LocationPreview
     private var _binding: FragmentLocationInfoBinding? = null
@@ -43,7 +43,7 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
 
         binding.apply {
             lifecycleOwner = this@LocationInfoFragment
-            viewModel = ortViewModel
+            viewModel = nearbyLocationsViewModel
             locationPreview = location
             rvReviewsBlock.apply {
                 layoutManager = LinearLayoutManager(
@@ -54,12 +54,11 @@ class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {
                 adapter = reviewAdapter
             }
 
-            swipeRefresh.setOnRefreshListener {
-                ortViewModel.getLocationInfo(location._id)
+            swipeRefresh.setOnRefreshListener { nearbyLocationsViewModel.getLocationInfo(location._id)
                 swipeRefresh.isRefreshing = false
             }
 
-            ortViewModel.currentLocationPreview = location
+            nearbyLocationsViewModel.setSelectedLocationPreview(location)
         }
     }
 
