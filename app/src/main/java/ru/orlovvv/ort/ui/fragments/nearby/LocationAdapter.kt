@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.orlovvv.ort.databinding.ItemLocationPreviewBinding
-import ru.orlovvv.ort.models.LocationPreview
+import ru.orlovvv.ort.models.entities.LocationPreview
 
 class LocationAdapter :
     ListAdapter<LocationPreview, LocationAdapter.LocationViewHolder>(LocationCallBack()) {

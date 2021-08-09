@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.models
+package ru.orlovvv.ort.models.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -21,7 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentMapsBinding
-import ru.orlovvv.ort.models.LocationPreview
+import ru.orlovvv.ort.models.entities.LocationPreview
 import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
 import ru.orlovvv.ort.util.Resource
 import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel

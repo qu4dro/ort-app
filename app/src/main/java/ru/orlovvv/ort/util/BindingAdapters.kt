@@ -8,8 +8,8 @@ import com.google.android.material.textview.MaterialTextView
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.ui.fragments.nearby.LocationAdapter
 import ru.orlovvv.ort.ui.fragments.location.ReviewAdapter
-import ru.orlovvv.ort.models.LocationPreview
-import ru.orlovvv.ort.models.Review
+import ru.orlovvv.ort.models.entities.LocationPreview
+import ru.orlovvv.ort.models.entities.Review
 import java.math.RoundingMode
 
 

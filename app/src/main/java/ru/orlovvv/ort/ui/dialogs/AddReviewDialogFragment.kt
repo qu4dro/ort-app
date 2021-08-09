@@ -15,9 +15,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddReviewDialogBinding
-import ru.orlovvv.ort.models.ReviewPost
+import ru.orlovvv.ort.models.post.ReviewPost
 import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
-import ru.orlovvv.ort.viewmodels.SavedLocationsViewModel
 
 @AndroidEntryPoint
 class AddReviewDialogFragment : BottomSheetDialogFragment() {

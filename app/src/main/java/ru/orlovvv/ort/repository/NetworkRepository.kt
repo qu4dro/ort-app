@@ -1,8 +1,8 @@
 package ru.orlovvv.ort.repository
 
 import ru.orlovvv.ort.api.Api
-import ru.orlovvv.ort.models.LocationPost
-import ru.orlovvv.ort.models.ReviewPost
+import ru.orlovvv.ort.models.post.LocationPost
+import ru.orlovvv.ort.models.post.ReviewPost
 import javax.inject.Inject
 
 class NetworkRepository @Inject constructor(private val api: Api) {

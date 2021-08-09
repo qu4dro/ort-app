@@ -2,7 +2,7 @@ package ru.orlovvv.ort.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import ru.orlovvv.ort.models.LocationPreview
+import ru.orlovvv.ort.models.entities.LocationPreview
 
 @Dao
 interface OrtDAO {

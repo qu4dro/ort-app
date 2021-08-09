@@ -39,7 +39,7 @@
         android:label="LocationInfoFragment">
         <argument
             android:name="location"
-            app:argType="ru.orlovvv.ort.models.LocationPreview" />
+            app:argType="ru.orlovvv.ort.models.entities.LocationPreview" />
     </fragment>
     <fragment
         android:id="@+id/loadingFragment"

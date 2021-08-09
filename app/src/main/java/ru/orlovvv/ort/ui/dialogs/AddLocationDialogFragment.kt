@@ -13,11 +13,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddLocationDialogBinding
-import ru.orlovvv.ort.models.LocationPost
+import ru.orlovvv.ort.models.post.LocationPost
 import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
 import ru.orlovvv.ort.util.LocationUtility
 import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
-import ru.orlovvv.ort.viewmodels.SavedLocationsViewModel
 
 
 @AndroidEntryPoint

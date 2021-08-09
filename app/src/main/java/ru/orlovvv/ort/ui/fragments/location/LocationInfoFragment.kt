@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentLocationInfoBinding
-import ru.orlovvv.ort.models.LocationPreview
+import ru.orlovvv.ort.models.entities.LocationPreview
 import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
 
 @AndroidEntryPoint

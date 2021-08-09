@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.models
+package ru.orlovvv.ort.models.post
 
 import com.squareup.moshi.Json
 

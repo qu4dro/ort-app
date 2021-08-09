@@ -2,7 +2,7 @@ package ru.orlovvv.ort.repository
 
 import androidx.lifecycle.LiveData
 import ru.orlovvv.ort.db.OrtDAO
-import ru.orlovvv.ort.models.LocationPreview
+import ru.orlovvv.ort.models.entities.LocationPreview
 import javax.inject.Inject
 
 class LocalRepository @Inject constructor(private val dao: OrtDAO) {

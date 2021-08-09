@@ -3,9 +3,9 @@ package ru.orlovvv.ort.repository
 import androidx.lifecycle.LiveData
 import ru.orlovvv.ort.api.Api
 import ru.orlovvv.ort.db.OrtDAO
-import ru.orlovvv.ort.models.LocationPost
-import ru.orlovvv.ort.models.LocationPreview
-import ru.orlovvv.ort.models.ReviewPost
+import ru.orlovvv.ort.models.post.LocationPost
+import ru.orlovvv.ort.models.entities.LocationPreview
+import ru.orlovvv.ort.models.post.ReviewPost
 import javax.inject.Inject
 
 class OrtRepository @Inject constructor(private val ortDAO: OrtDAO, private val api: Api) {

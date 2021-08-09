@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.models
+package ru.orlovvv.ort.models.entities
 
 data class Review(
     val _id: String,

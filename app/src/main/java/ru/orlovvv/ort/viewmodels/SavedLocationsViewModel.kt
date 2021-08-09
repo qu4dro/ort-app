@@ -3,7 +3,7 @@ package ru.orlovvv.ort.viewmodels
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.orlovvv.ort.models.LocationPreview
+import ru.orlovvv.ort.models.entities.LocationPreview
 import ru.orlovvv.ort.repository.LocalRepository
 import javax.inject.Inject
 

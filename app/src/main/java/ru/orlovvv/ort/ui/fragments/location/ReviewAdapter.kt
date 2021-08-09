@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.orlovvv.ort.databinding.ItemReviewBinding
-import ru.orlovvv.ort.models.Review
+import ru.orlovvv.ort.models.entities.Review
 
 class ReviewAdapter : ListAdapter<Review, ReviewAdapter.ReviewViewHolder>(ReviewCallBack()) {
 

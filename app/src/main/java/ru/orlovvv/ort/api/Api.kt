@@ -2,7 +2,10 @@ package ru.orlovvv.ort.api
 
 import retrofit2.Response
 import retrofit2.http.*
-import ru.orlovvv.ort.models.*
+import ru.orlovvv.ort.models.entities.LocationInfo
+import ru.orlovvv.ort.models.entities.LocationPreview
+import ru.orlovvv.ort.models.post.LocationPost
+import ru.orlovvv.ort.models.post.ReviewPost
 
 interface Api {
 

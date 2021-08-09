@@ -8,6 +8,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import ru.orlovvv.ort.models.*
+import ru.orlovvv.ort.models.entities.LocationInfo
+import ru.orlovvv.ort.models.entities.LocationPreview
+import ru.orlovvv.ort.models.post.LocationPost
+import ru.orlovvv.ort.models.post.ReviewPost
 import ru.orlovvv.ort.repository.NetworkRepository
 import ru.orlovvv.ort.util.Resource
 import java.lang.Exception
