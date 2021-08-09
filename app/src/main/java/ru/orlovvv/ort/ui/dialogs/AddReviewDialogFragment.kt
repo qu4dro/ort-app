@@ -17,7 +17,7 @@ import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentAddReviewDialogBinding
 import ru.orlovvv.ort.models.ReviewPost
 import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
-import ru.orlovvv.ort.viewmodels.OrtViewModel
+import ru.orlovvv.ort.viewmodels.SavedLocationsViewModel
 
 @AndroidEntryPoint
 class AddReviewDialogFragment : BottomSheetDialogFragment() {

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="ru.orlovvv.ort.viewmodels.OrtViewModel" />
+            type="ru.orlovvv.ort.viewmodels.SavedLocationsViewModel" />
 
     </data>
 

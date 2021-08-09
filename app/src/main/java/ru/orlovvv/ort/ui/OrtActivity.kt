@@ -19,15 +19,15 @@ import ru.orlovvv.ort.ui.dialogs.AddReviewDialogFragment
 import ru.orlovvv.ort.ui.dialogs.BottomNavigationDrawerFragment
 import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
 import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
-import ru.orlovvv.ort.viewmodels.OrtViewModel
+import ru.orlovvv.ort.viewmodels.SavedLocationsViewModel
 import timber.log.Timber
 
 @AndroidEntryPoint
 class OrtActivity : AppCompatActivity() {
 
-    val ortViewModel: OrtViewModel by viewModels()
+    private val savedLocationsViewModel: SavedLocationsViewModel by viewModels()
     private val nearbyLocationsViewModel: NearbyLocationsViewModel by viewModels()
-    val coordinatesViewModel: CoordinatesViewModel by viewModels()
+    private val coordinatesViewModel: CoordinatesViewModel by viewModels()
 
     private var _binding: ActivityOrtBinding? = null
     val binding: ActivityOrtBinding
@@ -89,7 +89,7 @@ class OrtActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                ortViewModel.searchQuery.value = newText
+                savedLocationsViewModel.searchQuery.value = newText
                 return true
             }
 

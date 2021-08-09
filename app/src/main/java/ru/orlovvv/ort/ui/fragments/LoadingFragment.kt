@@ -21,7 +21,6 @@ import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentLoadingBinding
 import ru.orlovvv.ort.models.CoordinatesModel
 import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
-import ru.orlovvv.ort.viewmodels.OrtViewModel
 import ru.orlovvv.ort.util.Constants
 import ru.orlovvv.ort.util.LocationUtility
 import ru.orlovvv.ort.util.Resource

@@ -12,7 +12,6 @@ import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentLocationInfoBinding
 import ru.orlovvv.ort.models.LocationPreview
 import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
-import ru.orlovvv.ort.viewmodels.OrtViewModel
 
 @AndroidEntryPoint
 class LocationInfoFragment : Fragment(R.layout.fragment_location_info) {

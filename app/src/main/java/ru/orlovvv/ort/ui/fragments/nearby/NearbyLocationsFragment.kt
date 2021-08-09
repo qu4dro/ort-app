@@ -14,7 +14,6 @@ import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentNearbyLocationsBinding
 import ru.orlovvv.ort.viewmodels.CoordinatesViewModel
 import ru.orlovvv.ort.viewmodels.NearbyLocationsViewModel
-import ru.orlovvv.ort.viewmodels.OrtViewModel
 
 @AndroidEntryPoint
 class NearbyLocationsFragment : Fragment(R.layout.fragment_nearby_locations) {

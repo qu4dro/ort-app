@@ -11,12 +11,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.ui.fragments.nearby.LocationAdapter
 import ru.orlovvv.ort.databinding.FragmentSavedLocationsBinding
-import ru.orlovvv.ort.viewmodels.OrtViewModel
+import ru.orlovvv.ort.viewmodels.SavedLocationsViewModel
 
 @AndroidEntryPoint
 class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
 
-    private val ortViewModel: OrtViewModel by activityViewModels()
+    private val savedLocationsViewModel: SavedLocationsViewModel by activityViewModels()
     private val locationAdapter: LocationAdapter = LocationAdapter()
 
     private var _binding: FragmentSavedLocationsBinding? = null
@@ -39,7 +39,7 @@ class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
 
         binding.apply {
             lifecycleOwner = this@SavedLocationsFragment
-            viewModel = ortViewModel
+            viewModel = savedLocationsViewModel
             rvSavedLocations.apply {
                 layoutManager = LinearLayoutManager(
                     view.context,
