@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.ui.fragments.nearby.LocationAdapter
@@ -17,7 +16,6 @@ import ru.orlovvv.ort.viewmodels.SavedLocationsViewModel
 class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
 
     private val savedLocationsViewModel: SavedLocationsViewModel by activityViewModels()
-    private val locationAdapter: LocationAdapter = LocationAdapter()
 
     private var _binding: FragmentSavedLocationsBinding? = null
     val binding
@@ -41,12 +39,8 @@ class SavedLocationsFragment : Fragment(R.layout.fragment_saved_locations) {
             lifecycleOwner = this@SavedLocationsFragment
             viewModel = savedLocationsViewModel
             rvSavedLocations.apply {
-                layoutManager = LinearLayoutManager(
-                    view.context,
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
-                adapter = locationAdapter
+                adapter = LocationAdapter()
+                setHasFixedSize(true)
             }
         }
 
