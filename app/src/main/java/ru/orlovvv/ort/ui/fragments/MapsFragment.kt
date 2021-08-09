@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import ru.orlovvv.ort.R
 import ru.orlovvv.ort.databinding.FragmentMapsBinding
@@ -130,6 +131,24 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         } catch (e: NotFoundException) {
             Timber.d(e, "Can't find style. Error: ")
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(
+            MaterialSharedAxis.Z,
+            true
+        ).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialSharedAxis(
+            MaterialSharedAxis.X,
+            false
+        ).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+
     }
     override fun onResume() {
         super.onResume()

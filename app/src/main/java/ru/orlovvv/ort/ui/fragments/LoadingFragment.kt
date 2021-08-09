@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialSharedAxis
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import ru.orlovvv.ort.R
@@ -53,6 +54,18 @@ class LoadingFragment : Fragment(R.layout.fragment_loading), EasyPermissions.Per
 
         checkGpsEnabled()
         requestPermissions()
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialSharedAxis(
+            MaterialSharedAxis.Z,
+            true
+        ).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
 
     }
 
