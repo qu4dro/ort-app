@@ -1,4 +1,4 @@
-package ru.orlovvv.ort.db
+package ru.orlovvv.ort.database
 
 import androidx.room.TypeConverter
 
