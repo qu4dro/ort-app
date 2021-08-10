@@ -14,6 +14,7 @@ import ru.orlovvv.ort.models.post.LocationPost
 import ru.orlovvv.ort.models.post.ReviewPost
 import ru.orlovvv.ort.repository.NetworkRepository
 import ru.orlovvv.ort.util.Resource
+import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -56,11 +57,15 @@ class NearbyLocationsViewModel @Inject constructor(private val networkRepository
     }
 
     fun addLocation(location: LocationPost) = viewModelScope.launch {
-        networkRepository.addLocation(location)
+        try {
+            networkRepository.addLocation(location)
+        } catch (e: Exception) { }
     }
 
     fun addReview(review: ReviewPost, locationId: String) = viewModelScope.launch {
-        networkRepository.addReview(review, locationId)
+        try {
+            networkRepository.addReview(review, locationId)
+        } catch (e: Exception) { }
     }
 
     private fun handleNearbyLocationsResponse(response: Response<List<LocationPreview>>): Resource<List<LocationPreview>> {
