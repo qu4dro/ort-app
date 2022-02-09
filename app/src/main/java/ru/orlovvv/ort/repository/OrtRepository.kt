@@ -8,7 +8,7 @@ import ru.orlovvv.ort.models.entities.LocationPreview
 import ru.orlovvv.ort.models.post.ReviewPost
 import javax.inject.Inject
 
-class OrtRepository @Inject constructor(private val ortDAO: OrtDAO, private val api: Api) {
+class OrtRepository @Inject constructor(private val dao: OrtDAO, private val api: Api) {
 
     // network
     suspend fun getNearbyLocations(lng: Double, lat: Double, maxDistance: Int) =
@@ -24,13 +24,12 @@ class OrtRepository @Inject constructor(private val ortDAO: OrtDAO, private val 
 
     // database
     suspend fun insertLocation(locationPreview: LocationPreview) =
-        ortDAO.insertLocation(locationPreview)
+        dao.insertLocation(locationPreview)
 
     suspend fun deleteLocation(locationPreview: LocationPreview) =
-        ortDAO.deleteLocation(locationPreview)
+        dao.deleteLocation(locationPreview)
 
     fun getSavedLocations(searchQuery: String): LiveData<List<LocationPreview>> =
-        ortDAO.getAllLocations(searchQuery)
-
+        dao.getAllLocations(searchQuery)
 
 }
